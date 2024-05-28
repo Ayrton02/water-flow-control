@@ -4,16 +4,14 @@ import domain.valueobjects.ID;
 
 import java.util.Date;
 
-public abstract class Entity<T> {
+public abstract class BaseEntity {
     protected ID id;
     protected Date createdAt;
     protected Date updatedAt;
-    protected T data;
 
-    public Entity(ID id, T data) {
+    public BaseEntity(ID id) {
         this.createdAt = new Date();
         this.updatedAt = new Date();
-        this.data = data;
         this.id = id;
     }
 }
