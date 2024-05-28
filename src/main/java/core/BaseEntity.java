@@ -1,5 +1,7 @@
 package core;
 
+import domain.valueobjects.ID;
+
 import java.util.Date;
 
 public abstract class Entity<T> {
