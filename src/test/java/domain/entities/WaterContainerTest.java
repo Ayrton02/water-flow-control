@@ -21,7 +21,7 @@ public class WaterContainerTest {
         );
 
         Assert.assertEquals(
-                container.getCurrentCapacity().getValue(),
+                container.getCurrentVolume().getValue(),
                 currentCapacity.getValue()
         );
     }

@@ -2,32 +2,32 @@ package domain.entities;
 
 import core.BaseEntity;
 import domain.exceptions.WaterOverFlowException;
-import domain.valueobjects.Capacity;
+import domain.valueobjects.Volume;
 import domain.valueobjects.ID;
 import domain.valueobjects.UUID;
 
-public abstract class WaterContainer<T extends Capacity<T>> extends BaseEntity {
+public abstract class WaterContainer<T extends Volume<T>> extends BaseEntity {
     private final T maxCapacity;
-    private T currentCapacity;
+    private T currentVolume;
 
-    protected WaterContainer(T maxCapacity, T currentCapacity) {
+    protected WaterContainer(T maxCapacity, T currentVolume) {
         super(UUID.generate());
         this.maxCapacity = maxCapacity;
-        this.currentCapacity = currentCapacity;
+        this.currentVolume = currentVolume;
     }
 
-    protected WaterContainer(ID id, T maxCapacity, T currentCapacity) {
+    protected WaterContainer(ID id, T maxCapacity, T currentVolume) {
         super(id);
         this.maxCapacity = maxCapacity;
-        this.currentCapacity = currentCapacity;
+        this.currentVolume = currentVolume;
     }
 
-    public T getCurrentCapacity() {
-        return currentCapacity;
+    public T getCurrentVolume() {
+        return currentVolume;
     }
 
-    public void setCurrentCapacity(T currentVolume) {
-        this.currentCapacity = currentVolume;
+    public void setCurrentVolume(T currentVolume) {
+        this.currentVolume = currentVolume;
     }
 
     public T getMaxCapacity() {
@@ -36,15 +36,15 @@ public abstract class WaterContainer<T extends Capacity<T>> extends BaseEntity {
 
     public void fill(T quantity) throws WaterOverFlowException {
         if (
-                quantity.add(this.currentCapacity).getValue() > this.maxCapacity.getValue()
+                quantity.add(this.currentVolume).getValue() > this.maxCapacity.getValue()
         ) {
             throw new WaterOverFlowException("water is overflowing");
         }
 
-        this.currentCapacity = quantity;
+        this.currentVolume = quantity;
     }
 
     public void empty() {
-        this.currentCapacity.empty();
+        this.currentVolume.empty();
     }
 }

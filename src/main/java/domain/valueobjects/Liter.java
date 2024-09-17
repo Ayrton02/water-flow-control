@@ -1,8 +1,8 @@
 package domain.valueobjects;
 
-import domain.exceptions.NegativeCapacityException;
+import domain.exceptions.NegativeVolumeException;
 
-public class Liter implements Capacity<Liter> {
+public class Liter implements Volume<Liter> {
     private Double value;
 
     public Liter(Double value) {
@@ -22,9 +22,9 @@ public class Liter implements Capacity<Liter> {
     }
 
     @Override
-    public Liter subtract(Liter liter) throws NegativeCapacityException {
+    public Liter subtract(Liter liter) throws NegativeVolumeException {
         if (liter.getValue() > this.value) {
-            throw new NegativeCapacityException("negative liter result");
+            throw new NegativeVolumeException("negative liter result");
         }
 
         this.value -= liter.getValue();
