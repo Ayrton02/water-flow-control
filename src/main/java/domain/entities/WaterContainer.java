@@ -5,39 +5,36 @@ import domain.exceptions.WaterOverFlowException;
 import domain.valueobjects.Capacity;
 import domain.valueobjects.ID;
 import domain.valueobjects.UUID;
-import domain.valueobjects.Volume;
 
-public class WaterContainer extends BaseEntity {
-    private final Capacity maxCapacity;
-    private Capacity currentCapacity;
+public abstract class WaterContainer<T extends Capacity<T>> extends BaseEntity {
+    private final T maxCapacity;
+    private T currentCapacity;
 
-    static WaterContainer create(Capacity maxCapacity, Capacity currentCapacity) {
-        return new WaterContainer(
-                UUID.generate(),
-                maxCapacity,
-                currentCapacity
-        );
+    protected WaterContainer(T maxCapacity, T currentCapacity) {
+        super(UUID.generate());
+        this.maxCapacity = maxCapacity;
+        this.currentCapacity = currentCapacity;
     }
 
-    private WaterContainer(ID id, Capacity maxCapacity, Capacity currentCapacity) {
+    protected WaterContainer(ID id, T maxCapacity, T currentCapacity) {
         super(id);
         this.maxCapacity = maxCapacity;
         this.currentCapacity = currentCapacity;
     }
 
-    public Capacity getCurrentCapacity() {
+    public T getCurrentCapacity() {
         return currentCapacity;
     }
 
-    public void setCurrentCapacity(Capacity currentCapacity) {
-        this.currentCapacity = currentCapacity;
+    public void setCurrentCapacity(T currentVolume) {
+        this.currentCapacity = currentVolume;
     }
 
-    public Capacity getMaxCapacity() {
+    public T getMaxCapacity() {
         return maxCapacity;
     }
 
-    public void fill(Capacity quantity) throws WaterOverFlowException {
+    public void fill(T quantity) throws WaterOverFlowException {
         if (
                 quantity.add(this.currentCapacity).getValue() > this.maxCapacity.getValue()
         ) {
@@ -48,6 +45,6 @@ public class WaterContainer extends BaseEntity {
     }
 
     public void empty() {
-        this.currentCapacity = new Volume(0d,0d,0d);
+        this.currentCapacity.empty();
     }
 }

@@ -5,19 +5,17 @@ import domain.valueobjects.Capacity;
 import domain.valueobjects.ID;
 import domain.valueobjects.UUID;
 
-public class WaterSource extends BaseEntity {
-    private final Capacity maxCapacity;
-    private Capacity currentCapacity;
+public abstract class WaterSource<T extends Capacity<T>> extends BaseEntity {
+    private final T maxCapacity;
+    private T currentCapacity;
 
-    static WaterSource create(Capacity maxCapacity, Capacity currentCapacity) {
-        return new WaterSource(
-                UUID.generate(),
-                maxCapacity,
-                currentCapacity
-        );
+    WaterSource(T maxCapacity, T currentCapacity) {
+        super(UUID.generate());
+        this.maxCapacity = maxCapacity;
+        this.currentCapacity = currentCapacity;
     }
 
-    private WaterSource(ID id, Capacity maxCapacity, Capacity currentCapacity) {
+    WaterSource(ID id, T maxCapacity, T currentCapacity) {
         super(id);
         this.maxCapacity = maxCapacity;
         this.currentCapacity = currentCapacity;

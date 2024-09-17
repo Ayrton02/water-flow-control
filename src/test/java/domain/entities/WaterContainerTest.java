@@ -1,8 +1,7 @@
 package domain.entities;
 
 import domain.exceptions.WaterOverFlowException;
-import domain.valueobjects.UUID;
-import domain.valueobjects.Volume;
+import domain.valueobjects.Liter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,17 +9,15 @@ public class WaterContainerTest {
 
     @Test()
     public void shouldNotFill() {
-        Volume maxCapacity = new Volume(100d, 100d, 100d);
-        Volume currentCapacity = new Volume(99d, 99d, 99d);
-        WaterContainer container = WaterContainer.create(
+        Liter maxCapacity = new Liter(100d);
+        Liter currentCapacity = new Liter(99d);
+        WaterContainer<Liter> container = new LiterWaterContainer(
                 maxCapacity,
                 currentCapacity
         );
 
         Assert.assertThrows(
-                WaterOverFlowException.class, () -> {
-                    container.fill(new Volume(100d, 100d, 100d));
-                }
+                WaterOverFlowException.class, () -> container.fill(new Liter(100d))
         );
 
         Assert.assertEquals(

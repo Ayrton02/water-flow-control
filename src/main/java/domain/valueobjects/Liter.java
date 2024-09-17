@@ -10,22 +10,25 @@ public class Liter implements Capacity<Liter> {
     }
 
     @Override
-    public Liter add(Liter quantity) {
-        this.value += quantity.getValue();
-        return this;
-    }
-
-    @Override
-    public Liter subtract(Liter quantity) throws NegativeCapacityException {
-        if (quantity.getValue() > this.value) {
-            throw new NegativeCapacityException("negative liter");
-        }
-        return this;
-    }
-
-    @Override
     public Double getValue() {
-        return this.value;
+        return value;
+    }
+
+
+    @Override
+    public Liter add(Liter liter) {
+        this.value += liter.getValue();
+        return this;
+    }
+
+    @Override
+    public Liter subtract(Liter liter) throws NegativeCapacityException {
+        if (liter.getValue() > this.value) {
+            throw new NegativeCapacityException("negative liter result");
+        }
+
+        this.value -= liter.getValue();
+        return this;
     }
 
     @Override
@@ -33,8 +36,8 @@ public class Liter implements Capacity<Liter> {
         this.value = 0d;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    @Override
+    public int compareTo(Liter liter) {
+        return this.value.compareTo(liter.getValue());
     }
-
 }
