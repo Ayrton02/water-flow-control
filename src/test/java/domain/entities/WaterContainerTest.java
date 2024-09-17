@@ -10,10 +10,10 @@ public class WaterContainerTest {
     @Test()
     public void shouldNotFill() {
         Liter maxCapacity = new Liter(100d);
-        Liter currentCapacity = new Liter(99d);
+        Liter currentVolume = new Liter(99d);
         WaterContainer<Liter> container = new LiterWaterContainer(
                 maxCapacity,
-                currentCapacity
+                currentVolume
         );
 
         Assert.assertThrows(
@@ -22,7 +22,7 @@ public class WaterContainerTest {
 
         Assert.assertEquals(
                 container.getCurrentVolume().getValue(),
-                currentCapacity.getValue()
+                currentVolume.getValue()
         );
     }
 
