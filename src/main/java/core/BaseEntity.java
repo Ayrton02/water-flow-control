@@ -5,11 +5,11 @@ import domain.valueobjects.ID;
 import java.util.Date;
 
 public abstract class BaseEntity {
-    private ID id;
-    private Date createdAt;
+    private final ID id;
+    private final Date createdAt;
     private Date updatedAt;
 
-    public BaseEntity(ID id) {
+    protected BaseEntity(ID id) {
         this.createdAt = new Date();
         this.updatedAt = new Date();
         this.id = id;
@@ -25,5 +25,9 @@ public abstract class BaseEntity {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

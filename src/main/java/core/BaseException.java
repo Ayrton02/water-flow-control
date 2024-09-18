@@ -1,20 +1,22 @@
 package core;
 
 public class BaseException extends RuntimeException {
-    protected String code;
-    protected String message;
-    protected Integer httpCode = 500;
+    protected final String code;
+    protected final String message;
+    protected final Integer httpCode;
 
     public BaseException(String message, String code) {
         super(message);
         this.message = message;
         this.code = code;
+        this.httpCode = 500;
     }
 
     public BaseException(String message, BaseExceptionCodes code) {
         super(message);
         this.message = message;
         this.code = code.toString();
+        this.httpCode = 500;
     }
 
     public BaseException(String message, BaseExceptionCodes code,  Integer httpCode) {
