@@ -45,6 +45,6 @@ public abstract class WaterContainer<T extends Volume<T>> extends BaseEntity {
     }
 
     public void empty() {
-        this.currentVolume.empty();
+        this.currentVolume.subtract(this.currentVolume);
     }
 }
