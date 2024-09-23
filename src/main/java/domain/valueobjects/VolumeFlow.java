@@ -3,11 +3,11 @@ package domain.valueobjects;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
-public abstract class WaterFlow<T extends Volume<T>> {
-        private final T volume;
-        private final TimeUnit timeUnit;
+public abstract class VolumeFlow<T extends Volume<T>> {
+        protected final T volume;
+        protected final TimeUnit timeUnit;
 
-        WaterFlow(T volume, TimeUnit timeUnit) {
+        VolumeFlow(T volume, TimeUnit timeUnit) {
             this.volume = volume;
             this.timeUnit = timeUnit;
         }
@@ -24,7 +24,7 @@ public abstract class WaterFlow<T extends Volume<T>> {
          * Calculates volume flow over a period of time
          *
          * @param startDate start date of flow
-         * @param endDate end date
+         * @param endDate end date of flow
          */
         public abstract T calculateFlowByTimeElapsed(LocalDateTime startDate, LocalDateTime endDate);
 }
