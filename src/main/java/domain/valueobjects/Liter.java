@@ -32,11 +32,6 @@ public class Liter implements Volume<Liter> {
     }
 
     @Override
-    public void empty() {
-        this.value = 0d;
-    }
-
-    @Override
     public int compareTo(Liter liter) {
         return this.value.compareTo(liter.getValue());
     }
