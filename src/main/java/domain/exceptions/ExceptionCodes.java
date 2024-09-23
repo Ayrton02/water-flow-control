@@ -2,5 +2,6 @@ package domain.exceptions;
 
 public enum ExceptionCodes {
     NEGATIVE_VOLUME,
-    WATER_OVERFLOW
+    WATER_OVERFLOW,
+    SAFETY_THRESHOLD,
 }
