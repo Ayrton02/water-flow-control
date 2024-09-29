@@ -1,36 +1,43 @@
 package domain.entities;
 
 import core.BaseEntity;
+import domain.exceptions.ContainerAlreadyFullException;
+import domain.exceptions.SafetyThresholdException;
 import domain.valueobjects.ID;
 import domain.valueobjects.UUID;
 import domain.valueobjects.Volume;
-import domain.valueobjects.WaterFlow;
+import domain.valueobjects.VolumeFlow;
+
+import java.time.LocalDateTime;
 
 public abstract class WaterPump<T extends Volume<T>> extends BaseEntity {
-    private WaterFlow<T> waterFlow;
-    private WaterContainer<T> container;
-    private WaterSource<T> source;
+    private VolumeFlow<T> volumeFlow;
+    private boolean isActive = false;
+
     protected WaterPump(
             ID id,
-            WaterFlow<T> waterFlow,
-            WaterContainer<T> container,
-            WaterSource<T> source
+            VolumeFlow<T> volumeFlow
     ) {
         super(id);
-        this.waterFlow = waterFlow;
-        this.source = source;
-        this.container = container;
+        this.volumeFlow = volumeFlow;
     }
 
     protected WaterPump(
-            WaterFlow<T> waterFlow,
-            WaterContainer<T> container,
-            WaterSource<T> source
+            VolumeFlow<T> volumeFlow
     ) {
         super(UUID.generate());
-        this.waterFlow = waterFlow;
-        this.source = source;
-        this.container = container;
+        this.volumeFlow = volumeFlow;
     }
 
+    public void start() {
+        this.isActive = true;
+    }
+
+    public void stop() {
+        this.isActive = false;
+    }
+
+    public boolean isActive() {
+        return this.isActive;
+    }
 }

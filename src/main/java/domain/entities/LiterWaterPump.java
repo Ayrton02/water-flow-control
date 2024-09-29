@@ -2,24 +2,20 @@ package domain.entities;
 
 import domain.valueobjects.ID;
 import domain.valueobjects.Liter;
-import domain.valueobjects.WaterFlow;
+import domain.valueobjects.VolumeFlow;
 
 public class LiterWaterPump extends WaterPump<Liter> {
 
-    protected LiterWaterPump(
+    public LiterWaterPump(
             ID id,
-            WaterFlow<Liter> waterFlow,
-            WaterContainer<Liter> container,
-            WaterSource<Liter> source
+            VolumeFlow<Liter> volumeFlow
     ) {
-        super(id, waterFlow, container, source);
+        super(id, volumeFlow);
     }
 
-    protected LiterWaterPump(
-            WaterFlow<Liter> waterFlow,
-            WaterContainer<Liter> container,
-            WaterSource<Liter> source
+    public LiterWaterPump(
+            VolumeFlow<Liter> volumeFlow
     ) {
-        super(waterFlow, container, source);
+        super(volumeFlow);
     }
 }
