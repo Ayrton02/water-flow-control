@@ -52,6 +52,18 @@ public class WaterFlowSession extends BaseEntity {
         return startedAt;
     }
 
+    public WaterContainer getWaterContainer() {
+        return this.WATER_CONTAINER;
+    }
+
+    public WaterPump getWaterPump() {
+        return this.WATER_PUMP;
+    }
+
+    public WaterSource getWaterSource() {
+        return this.WATER_SOURCE;
+    }
+
     public void start() {
         if (this.status != WaterFlowSessionStatus.OFF) {
             throw new WaterFlowSessionException(
