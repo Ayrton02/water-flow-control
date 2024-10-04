@@ -25,6 +25,10 @@ public abstract class WaterPump<T extends Volume<T>> extends BaseEntity {
         this.volumeFlow = volumeFlow;
     }
 
+    public VolumeFlow<T> getVolumeFlow() {
+        return this.volumeFlow;
+    }
+
     public void start() {
         this.isActive = true;
     }
