@@ -1,12 +1,14 @@
 package waterflow.domain.entities;
 
 import core.baseclasses.BaseEntity;
+import core.exception.BaseException;
 import waterflow.domain.exceptions.WaterFlowSessionException;
 import waterflow.domain.exceptions.ContainerAlreadyFullException;
 import waterflow.domain.exceptions.SafetyThresholdException;
 import core.valueobjects.ID;
 import core.valueobjects.UUID;
 import waterflow.domain.valueobjects.Volume;
+import waterflow.domain.valueobjects.VolumeFlow;
 
 import java.time.LocalDateTime;
 
@@ -20,7 +22,8 @@ public class WaterFlowSession extends BaseEntity {
         PAUSED,
         ON,
         COMPLETED,
-        ERRORED
+        ERRORED,
+        COMPLETED_WITH_ERROR
     }
 
     private LocalDateTime startedAt;
@@ -98,5 +101,20 @@ public class WaterFlowSession extends BaseEntity {
         this.finishedAt = LocalDateTime.now();
         this.WATER_PUMP.stop();
         this.status = WaterFlowSessionStatus.COMPLETED;
+    }
+
+    public void sync() {
+        if (this.WATER_PUMP.isActive() && this.status == WaterFlowSessionStatus.ON) {
+            VolumeFlow flow = this.WATER_PUMP.getVolumeFlow();
+            Volume volume = flow.calculateFlowByTimeElapsed(this.startedAt, LocalDateTime.now());
+            try {
+                this.WATER_SOURCE.dump(volume);
+                this.WATER_CONTAINER.fill(volume);
+            } catch (BaseException e) {
+                this.finishedAt = LocalDateTime.now();
+                this.WATER_PUMP.stop();
+                this.status = WaterFlowSessionStatus.COMPLETED_WITH_ERROR;
+            }
+        }
     }
 }

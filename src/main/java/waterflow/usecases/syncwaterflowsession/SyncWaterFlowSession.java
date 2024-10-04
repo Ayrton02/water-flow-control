@@ -1,8 +1,8 @@
-package usecases.syncwaterflowsession;
+package waterflow.usecases.syncwaterflowsession;
 
-import domain.entities.WaterFlowSession;
-import domain.valueobjects.ID;
-import usecases.startwaterflowsession.WaterSessionNotFoundException;
+import core.valueobjects.ID;
+import waterflow.domain.entities.WaterFlowSession;
+import waterflow.domain.exceptions.WaterSessionNotFoundException;
 
 public class SyncWaterFlowSession {
 
@@ -18,5 +18,7 @@ public class SyncWaterFlowSession {
             throw new WaterSessionNotFoundException();
         }
 
+        session.sync();
+        this.repository.save(session, session.getWaterContainer(), session.getWaterSource(), session.getWaterPump());
     }
 }
