@@ -1,6 +1,7 @@
 package waterflow.domain.valueobjects;
 
-import java.time.LocalDateTime;
+import core.valueobjects.DateTime;
+
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
@@ -14,8 +15,8 @@ public class LiterFlow extends VolumeFlow<Liter> {
     }
 
     @Override
-    public Liter calculateFlowByTimeElapsed(LocalDateTime startDate, LocalDateTime endDate) {
-        long millisecondsElapsed = ChronoUnit.MILLIS.between(startDate, endDate);
+    public Liter calculateFlowByTimeElapsed(DateTime startDate, DateTime endDate) {
+        long millisecondsElapsed = DateTime.between(startDate, endDate, ChronoUnit.MILLIS);
         Long timeUnitConvertedElapsed = this.timeUnit.convert(millisecondsElapsed, this.timeUnit);
         return new Liter(this.volume.getValue() * timeUnitConvertedElapsed);
     }

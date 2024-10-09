@@ -2,15 +2,14 @@ package waterflow.domain.entities;
 
 import core.baseclasses.BaseEntity;
 import core.exception.BaseException;
-import waterflow.domain.exceptions.WaterFlowSessionException;
-import waterflow.domain.exceptions.ContainerAlreadyFullException;
-import waterflow.domain.exceptions.SafetyThresholdException;
+import core.valueobjects.DateTime;
 import core.valueobjects.ID;
 import core.valueobjects.UUID;
+import waterflow.domain.exceptions.ContainerAlreadyFullException;
+import waterflow.domain.exceptions.SafetyThresholdException;
+import waterflow.domain.exceptions.WaterFlowSessionException;
 import waterflow.domain.valueobjects.Volume;
 import waterflow.domain.valueobjects.VolumeFlow;
-
-import java.time.LocalDateTime;
 
 public class WaterFlowSession extends BaseEntity {
     private final WaterPump WATER_PUMP;
@@ -26,8 +25,8 @@ public class WaterFlowSession extends BaseEntity {
         COMPLETED_WITH_ERROR
     }
 
-    private LocalDateTime startedAt;
-    private LocalDateTime finishedAt;
+    private DateTime startedAt;
+    private DateTime finishedAt;
     private WaterFlowSessionStatus status;
 
     private <T extends Volume<T>> WaterFlowSession(
@@ -51,7 +50,7 @@ public class WaterFlowSession extends BaseEntity {
         return new WaterFlowSession(UUID.generate(), container, source, pump);
     }
 
-    public LocalDateTime getStartedAt() {
+    public DateTime getStartedAt() {
         return startedAt;
     }
 
@@ -73,17 +72,17 @@ public class WaterFlowSession extends BaseEntity {
                     "cannot start water flow session because status is "+ this.status.name()
             );
         }
-        this.startedAt = LocalDateTime.now();
+        this.startedAt = DateTime.now();
 
         if (this.WATER_SOURCE.getCurrentVolume().compareTo(this.WATER_SOURCE.getSafetyThreshold()) < 0) {
             this.status = WaterFlowSessionStatus.ERRORED;
-            this.finishedAt = LocalDateTime.now();
+            this.finishedAt = DateTime.now();
             throw new SafetyThresholdException("safety threshold reached, try again later");
         }
 
         if (this.WATER_CONTAINER.getCurrentVolume().compareTo(this.WATER_CONTAINER.getMaxCapacity()) >= 0) {
             this.status = WaterFlowSessionStatus.ERRORED;
-            this.finishedAt = LocalDateTime.now();
+            this.finishedAt = DateTime.now();
             throw new ContainerAlreadyFullException("container is already full");
         }
 
@@ -98,7 +97,7 @@ public class WaterFlowSession extends BaseEntity {
             );
         }
 
-        this.finishedAt = LocalDateTime.now();
+        this.finishedAt = DateTime.now();
         this.WATER_PUMP.stop();
         this.status = WaterFlowSessionStatus.COMPLETED;
     }
@@ -106,12 +105,12 @@ public class WaterFlowSession extends BaseEntity {
     public void sync() {
         if (this.WATER_PUMP.isActive() && this.status == WaterFlowSessionStatus.ON) {
             VolumeFlow flow = this.WATER_PUMP.getVolumeFlow();
-            Volume volume = flow.calculateFlowByTimeElapsed(this.startedAt, LocalDateTime.now());
+            Volume volume = flow.calculateFlowByTimeElapsed(this.startedAt, DateTime.now());
             try {
                 this.WATER_SOURCE.dump(volume);
                 this.WATER_CONTAINER.fill(volume);
             } catch (BaseException e) {
-                this.finishedAt = LocalDateTime.now();
+                this.finishedAt = DateTime.now();
                 this.WATER_PUMP.stop();
                 this.status = WaterFlowSessionStatus.COMPLETED_WITH_ERROR;
             }
