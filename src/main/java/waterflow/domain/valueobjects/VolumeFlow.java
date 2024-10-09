@@ -1,6 +1,7 @@
 package waterflow.domain.valueobjects;
 
-import java.time.LocalDateTime;
+import core.valueobjects.DateTime;
+
 import java.util.concurrent.TimeUnit;
 
 public abstract class VolumeFlow<T extends Volume<T>> {
@@ -26,5 +27,5 @@ public abstract class VolumeFlow<T extends Volume<T>> {
          * @param startDate start date of flow
          * @param endDate end date of flow
          */
-        public abstract T calculateFlowByTimeElapsed(LocalDateTime startDate, LocalDateTime endDate);
+        public abstract T calculateFlowByTimeElapsed(DateTime startDate, DateTime endDate);
 }

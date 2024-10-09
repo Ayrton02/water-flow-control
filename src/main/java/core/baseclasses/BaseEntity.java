@@ -1,17 +1,16 @@
 package core.baseclasses;
 
+import core.valueobjects.DateTime;
 import core.valueobjects.ID;
-
-import java.time.LocalDateTime;
 
 public abstract class BaseEntity {
     private final ID id;
-    private final LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private final DateTime createdAt;
+    private DateTime updatedAt;
 
     protected BaseEntity(ID id) {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.createdAt = DateTime.now();
+        this.updatedAt = DateTime.now();
         this.id = id;
     }
 
@@ -19,15 +18,15 @@ public abstract class BaseEntity {
         return id;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public DateTime getCreatedAt() {
         return createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public DateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(DateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
