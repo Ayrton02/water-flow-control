@@ -1,23 +1,23 @@
 package waterflow.usecases;
 
+import core.valueobjects.DateTime;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.*;
 import waterflow.domain.entities.LiterWaterContainer;
 import waterflow.domain.entities.LiterWaterPump;
 import waterflow.domain.entities.LiterWaterSource;
 import waterflow.domain.entities.WaterFlowSession;
 import waterflow.domain.valueobjects.Liter;
 import waterflow.domain.valueobjects.LiterFlow;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import waterflow.usecases.startwaterflowsession.StartWaterFlowSessionRepository;
 import waterflow.usecases.startwaterflowsession.StartWaterFlowSessionUseCase;
 
 import java.util.concurrent.TimeUnit;
+
+import static org.mockito.Mockito.mockStatic;
 
 public class StartWaterFlowSessionUseCaseTest {
 
@@ -43,7 +43,7 @@ public class StartWaterFlowSessionUseCaseTest {
     public void shouldStartWaterFlowSession() {
         LiterWaterContainer container = new LiterWaterContainer(
                 new Liter(100d),
-                new Liter(10d)
+                new Liter(0d)
         );
         LiterWaterSource source = new LiterWaterSource(
                 new Liter(100d),
@@ -58,11 +58,20 @@ public class StartWaterFlowSessionUseCaseTest {
                 literFlow
         );
 
-        WaterFlowSession session = WaterFlowSession.create(source, container, pump);
+        DateTime firstTime = DateTime.parse("2024-10-09T21:00:00");
+        DateTime secondTime = DateTime.parse("2024-10-09T21:00:05");
 
-        Mockito.when(repository.findById(session.getId())).thenAnswer(a -> session);
+        try (MockedStatic<DateTime> mockedDateTime = mockStatic(DateTime.class)) {
+            mockedDateTime.when(DateTime::now).thenReturn(firstTime);
 
-        this.usecase.execute(session.getId());
-        Assert.assertTrue(session.getStartedAt().isAfter(session.getCreatedAt()));
+            WaterFlowSession session = WaterFlowSession.create(source, container, pump);
+
+            Mockito.when(repository.findById(session.getId())).thenAnswer(a -> session);
+
+            mockedDateTime.when(DateTime::now).thenReturn(secondTime);
+
+            this.usecase.execute(session.getId());
+            Assert.assertTrue(session.getStartedAt().isAfter(session.getCreatedAt()));
+        }
     }
 }
