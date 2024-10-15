@@ -4,11 +4,11 @@ import core.valueobjects.ID;
 import waterflow.domain.entities.WaterFlowSession;
 import waterflow.domain.exceptions.WaterSessionNotFoundException;
 
-public class SyncWaterFlowSession {
+public class SyncWaterFlowSessionUseCase {
 
     private SyncWaterFlowSessionRepository repository;
 
-    SyncWaterFlowSession(SyncWaterFlowSessionRepository repository) {
+    SyncWaterFlowSessionUseCase(SyncWaterFlowSessionRepository repository) {
         this.repository = repository;
     }
 

@@ -17,7 +17,7 @@ public class LiterFlow extends VolumeFlow<Liter> {
     @Override
     public Liter calculateFlowByTimeElapsed(DateTime startDate, DateTime endDate) {
         long millisecondsElapsed = DateTime.between(startDate, endDate, ChronoUnit.MILLIS);
-        Long timeUnitConvertedElapsed = this.timeUnit.convert(millisecondsElapsed, this.timeUnit);
+        Long timeUnitConvertedElapsed = this.timeUnit.convert(millisecondsElapsed, TimeUnit.MILLISECONDS);
         return new Liter(this.volume.getValue() * timeUnitConvertedElapsed);
     }
 }
