@@ -66,6 +66,10 @@ public class WaterFlowSession extends BaseEntity {
         return this.WATER_SOURCE;
     }
 
+    public String getStatus() {
+        return this.status.name();
+    }
+
     public void start() {
         if (this.status != WaterFlowSessionStatus.OFF) {
             throw new WaterFlowSessionException(
