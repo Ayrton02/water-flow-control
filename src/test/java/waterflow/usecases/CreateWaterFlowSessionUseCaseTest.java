@@ -1,18 +1,21 @@
 package waterflow.usecases;
 
-import waterflow.domain.entities.LiterWaterContainer;
-import waterflow.domain.entities.LiterWaterPump;
-import waterflow.domain.entities.LiterWaterSource;
-import waterflow.domain.valueobjects.Liter;
-import waterflow.domain.valueobjects.LiterFlow;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionInput;
+import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionOutput;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionUseCase;
+import waterflow.domain.entities.LiterWaterContainer;
+import waterflow.domain.entities.LiterWaterPump;
+import waterflow.domain.entities.LiterWaterSource;
+import waterflow.domain.valueobjects.Liter;
+import waterflow.domain.valueobjects.LiterFlow;
 
 import java.util.concurrent.TimeUnit;
 
@@ -57,12 +60,19 @@ public class CreateWaterFlowSessionUseCaseTest {
                 literFlow
         );
 
-        when(repository.findPumpById(pump.getId())).thenAnswer(a -> pump);
-        when(repository.findContainerById(container.getId())).thenAnswer(a -> container);
-        when(repository.findSourceById(source.getId())).thenAnswer(a -> source);
+        CreateWaterFlowSessionInput input = CreateWaterFlowSessionInput.with(
+                pump.getId().getValue(),
+                container.getId().getValue(),
+                source.getId().getValue()
+        );
 
-        this.useCase.execute(pump.getId(), container.getId(), source.getId());
+        when(repository.findPumpById(input.getPumpId())).thenAnswer(a -> pump);
+        when(repository.findContainerById(input.getContainerId())).thenAnswer(a -> container);
+        when(repository.findSourceById(input.getSourceId())).thenAnswer(a -> source);
+
+        CreateWaterFlowSessionOutput output = this.useCase.execute(input);
 
         verify(repository, times(1)).save(any());
+        Assert.assertEquals("OFF", output.getStatus());
     }
 }
