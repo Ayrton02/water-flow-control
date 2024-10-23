@@ -3,7 +3,7 @@ package core.valueobjects;
 public abstract class ID {
     protected String value;
 
-    public ID(String value) {
+    protected ID(String value) {
         this.validate(value);
         this.value = value;
     }
