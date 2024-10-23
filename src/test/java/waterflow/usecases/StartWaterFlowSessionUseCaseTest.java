@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
+import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionInput;
 import waterflow.domain.entities.LiterWaterContainer;
 import waterflow.domain.entities.LiterWaterPump;
 import waterflow.domain.entities.LiterWaterSource;
@@ -66,11 +67,13 @@ public class StartWaterFlowSessionUseCaseTest {
 
             WaterFlowSession session = WaterFlowSession.create(source, container, pump);
 
-            Mockito.when(repository.findById(session.getId())).thenAnswer(a -> session);
+            StartWaterFlowSessionInput input = StartWaterFlowSessionInput.with(session.getId().getValue());
+
+            Mockito.when(repository.findById(input.getId())).thenAnswer(a -> session);
 
             mockedDateTime.when(DateTime::now).thenReturn(secondTime);
 
-            this.usecase.execute(session.getId());
+            this.usecase.execute(input);
             Assert.assertTrue(session.getStartedAt().isAfter(session.getCreatedAt()));
         }
     }

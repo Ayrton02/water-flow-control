@@ -6,7 +6,7 @@ import core.valueobjects.ID;
 import waterflow.domain.exceptions.WaterSessionNotFoundException;
 
 
-public class StartWaterFlowSessionUseCase {
+public class StartWaterFlowSessionUseCase implements IStartWaterFlowSessionUseCase {
 
     private StartWaterFlowSessionRepository repository;
 
@@ -14,8 +14,8 @@ public class StartWaterFlowSessionUseCase {
         this.repository = repository;
     }
 
-    public void execute(ID id) {
-        WaterFlowSession session = this.repository.findById(id);
+    public StartWaterFlowSessionOutput execute(StartWaterFlowSessionInput input) {
+        WaterFlowSession session = this.repository.findById(input.getId());
 
         if (session == null) {
             throw new WaterSessionNotFoundException();
@@ -28,5 +28,6 @@ public class StartWaterFlowSessionUseCase {
         }
 
         this.repository.save(session);
+        return StartWaterFlowSessionOutput.from(session);
     }
 }
