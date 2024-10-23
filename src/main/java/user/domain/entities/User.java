@@ -20,4 +20,12 @@ public class User extends BaseEntity {
         this.name = name;
         this.documentNumber = new DocumentNumber(documentNumber);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public DocumentNumber getDocumentNumber() {
+        return documentNumber;
+    }
 }
