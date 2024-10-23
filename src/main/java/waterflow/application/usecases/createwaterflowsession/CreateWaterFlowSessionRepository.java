@@ -1,4 +1,4 @@
-package waterflow.usecases.createwaterflowsession;
+package waterflow.application.usecases.createwaterflowsession;
 
 import waterflow.domain.entities.WaterContainer;
 import waterflow.domain.entities.WaterFlowSession;

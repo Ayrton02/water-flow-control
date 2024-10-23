@@ -1,4 +1,4 @@
-package waterflow.usecases.startwaterflowsession;
+package waterflow.application.usecases.startwaterflowsession;
 
 import core.exception.BaseException;
 import waterflow.domain.entities.WaterFlowSession;

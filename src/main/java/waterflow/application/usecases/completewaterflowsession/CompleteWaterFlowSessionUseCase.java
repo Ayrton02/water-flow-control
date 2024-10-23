@@ -1,4 +1,4 @@
-package waterflow.usecases.completewaterflowsession;
+package waterflow.application.usecases.completewaterflowsession;
 
 import core.valueobjects.ID;
 import waterflow.domain.entities.WaterFlowSession;

@@ -1,4 +1,4 @@
-package user.usecases.createuser;
+package user.application.usecases.createuser;
 
 import core.usecase.BaseUseCase;
 

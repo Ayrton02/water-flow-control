@@ -12,8 +12,8 @@ import waterflow.domain.entities.LiterWaterSource;
 import waterflow.domain.entities.WaterFlowSession;
 import waterflow.domain.valueobjects.Liter;
 import waterflow.domain.valueobjects.LiterFlow;
-import waterflow.usecases.startwaterflowsession.StartWaterFlowSessionRepository;
-import waterflow.usecases.startwaterflowsession.StartWaterFlowSessionUseCase;
+import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionRepository;
+import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionUseCase;
 
 import java.util.concurrent.TimeUnit;
 

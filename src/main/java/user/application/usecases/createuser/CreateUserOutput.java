@@ -1,4 +1,4 @@
-package user.usecases.createuser;
+package user.application.usecases.createuser;
 
 import core.valueobjects.DateTime;
 import user.domain.entities.User;

@@ -11,8 +11,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import waterflow.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
-import waterflow.usecases.createwaterflowsession.CreateWaterFlowSessionUseCase;
+import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
+import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionUseCase;
 
 import java.util.concurrent.TimeUnit;
 
