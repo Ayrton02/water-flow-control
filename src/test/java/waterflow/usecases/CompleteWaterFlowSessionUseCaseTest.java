@@ -8,14 +8,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionInput;
+import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionRepository;
+import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionUseCase;
 import waterflow.domain.entities.LiterWaterContainer;
 import waterflow.domain.entities.LiterWaterPump;
 import waterflow.domain.entities.LiterWaterSource;
 import waterflow.domain.entities.WaterFlowSession;
 import waterflow.domain.valueobjects.Liter;
 import waterflow.domain.valueobjects.LiterFlow;
-import waterflow.usecases.completewaterflowsession.CompleteWaterFlowSessionRepository;
-import waterflow.usecases.completewaterflowsession.CompleteWaterFlowSessionUseCase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -61,9 +62,11 @@ public class CompleteWaterFlowSessionUseCaseTest {
         WaterFlowSession session = WaterFlowSession.create(source, container, pump);
         session.start();
 
-        Mockito.when(repository.findById(session.getId())).thenAnswer(a -> session);
+        CompleteWaterFlowSessionInput input = CompleteWaterFlowSessionInput.with(session.getId().getValue());
 
-        this.usecase.execute(session.getId());
-        Assert.assertEquals(session.getStatus(), "COMPLETED");
+        Mockito.when(repository.findById(input.getId())).thenAnswer(a -> session);
+
+        this.usecase.execute(input);
+        Assert.assertEquals("COMPLETED", session.getStatus());
     }
 }

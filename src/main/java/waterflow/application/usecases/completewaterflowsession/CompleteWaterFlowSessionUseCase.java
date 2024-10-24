@@ -1,10 +1,9 @@
-package waterflow.usecases.completewaterflowsession;
+package waterflow.application.usecases.completewaterflowsession;
 
-import core.valueobjects.ID;
 import waterflow.domain.entities.WaterFlowSession;
 import waterflow.domain.exceptions.WaterSessionNotFoundException;
 
-public class CompleteWaterFlowSessionUseCase {
+public class CompleteWaterFlowSessionUseCase implements ICompleteWaterFlowSessionUseCase {
 
     private CompleteWaterFlowSessionRepository repository;
 
@@ -12,13 +11,14 @@ public class CompleteWaterFlowSessionUseCase {
         this.repository = repository;
     }
 
-    public void execute(ID id) {
-        WaterFlowSession session = this.repository.findById(id);
+    public CompleteWaterFlowSessionOutput execute(CompleteWaterFlowSessionInput input) {
+        WaterFlowSession session = this.repository.findById(input.getId());
         if (session == null) {
             throw new WaterSessionNotFoundException();
         }
 
         session.complete();
         this.repository.save(session, session.getWaterPump());
+        return CompleteWaterFlowSessionOutput.from(session);
     }
 }

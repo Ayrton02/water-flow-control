@@ -1,4 +1,4 @@
-package waterflow.usecases.syncwaterflowsession;
+package waterflow.application.usecases.syncwaterflowsession;
 
 import waterflow.domain.entities.WaterContainer;
 import waterflow.domain.entities.WaterFlowSession;

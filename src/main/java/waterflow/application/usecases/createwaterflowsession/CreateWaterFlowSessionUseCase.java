@@ -1,4 +1,4 @@
-package waterflow.usecases.createwaterflowsession;
+package waterflow.application.usecases.createwaterflowsession;
 
 import waterflow.domain.entities.WaterContainer;
 import waterflow.domain.entities.WaterFlowSession;
@@ -9,17 +9,17 @@ import waterflow.domain.exceptions.WaterContainerNotFoundException;
 import waterflow.domain.exceptions.WaterPumpNotFoundException;
 import waterflow.domain.exceptions.WaterSourceNotFoundException;
 
-public class CreateWaterFlowSessionUseCase {
+public class CreateWaterFlowSessionUseCase implements ICreateWaterFlowSessionUseCase {
 
     private final CreateWaterFlowSessionRepository repository;
 
     public CreateWaterFlowSessionUseCase(CreateWaterFlowSessionRepository repository) {
         this.repository = repository;
     }
-    public void execute(ID pumpId, ID containerId, ID sourceId) {
-        WaterPump waterPump = this.repository.findPumpById(pumpId);
-        WaterSource waterSource = this.repository.findSourceById(sourceId);
-        WaterContainer waterContainer = this.repository.findContainerById(containerId);
+    public CreateWaterFlowSessionOutput execute(CreateWaterFlowSessionInput input) {
+        WaterPump waterPump = this.repository.findPumpById(input.getPumpId());
+        WaterSource waterSource = this.repository.findSourceById(input.getSourceId());
+        WaterContainer waterContainer = this.repository.findContainerById(input.getContainerId());
 
         if (waterPump == null) {
             throw new WaterPumpNotFoundException();
@@ -36,5 +36,6 @@ public class CreateWaterFlowSessionUseCase {
         WaterFlowSession session = WaterFlowSession.create(waterSource, waterContainer, waterPump);
 
         this.repository.save(session);
+        return CreateWaterFlowSessionOutput.from(session);
     }
 }

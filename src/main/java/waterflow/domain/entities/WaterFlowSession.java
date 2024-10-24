@@ -54,6 +54,10 @@ public class WaterFlowSession extends BaseEntity {
         return startedAt;
     }
 
+    public DateTime getFinishedAt() {
+        return finishedAt;
+    }
+
     public WaterContainer getWaterContainer() {
         return this.WATER_CONTAINER;
     }

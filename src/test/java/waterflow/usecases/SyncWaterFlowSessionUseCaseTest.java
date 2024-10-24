@@ -6,14 +6,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
+import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionInput;
+import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionOutput;
 import waterflow.domain.entities.LiterWaterContainer;
 import waterflow.domain.entities.LiterWaterPump;
 import waterflow.domain.entities.LiterWaterSource;
 import waterflow.domain.entities.WaterFlowSession;
 import waterflow.domain.valueobjects.Liter;
 import waterflow.domain.valueobjects.LiterFlow;
-import waterflow.usecases.syncwaterflowsession.SyncWaterFlowSessionRepository;
-import waterflow.usecases.syncwaterflowsession.SyncWaterFlowSessionUseCase;
+import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionRepository;
+import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionUseCase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -67,12 +69,14 @@ public class SyncWaterFlowSessionUseCaseTest {
             mockedDateTime.when(DateTime::now).thenReturn(firstTime);
             session.start();
 
-            Mockito.when(repository.findById(session.getId())).thenAnswer(a -> session);
+            SyncWaterFlowSessionInput input = SyncWaterFlowSessionInput.with(session.getId().getValue());
+
+            Mockito.when(repository.findById(input.getId())).thenAnswer(a -> session);
 
             mockedDateTime.when(DateTime::now).thenReturn(secondTime);
 
-            this.usecase.execute(session.getId());
-            Assert.assertEquals(0,session.getWaterContainer().getCurrentVolume().compareTo(new Liter(5d)));
+            SyncWaterFlowSessionOutput output = this.usecase.execute(input);
+            Assert.assertEquals(0,output.getContainerVolume().compareTo(new Liter(5d).getValue()));
         }
     }
 }
