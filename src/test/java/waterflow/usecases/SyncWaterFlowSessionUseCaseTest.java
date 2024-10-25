@@ -69,7 +69,7 @@ public class SyncWaterFlowSessionUseCaseTest {
             mockedDateTime.when(DateTime::now).thenReturn(firstTime);
             session.start();
 
-            SyncWaterFlowSessionInput input = SyncWaterFlowSessionInput.with(session.getId().getValue());
+            SyncWaterFlowSessionInput input = SyncWaterFlowSessionInput.with(session.getId());
 
             Mockito.when(repository.findById(input.getId())).thenAnswer(a -> session);
 

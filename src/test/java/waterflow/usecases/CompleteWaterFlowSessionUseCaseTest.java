@@ -62,7 +62,7 @@ public class CompleteWaterFlowSessionUseCaseTest {
         WaterFlowSession session = WaterFlowSession.create(source, container, pump);
         session.start();
 
-        CompleteWaterFlowSessionInput input = CompleteWaterFlowSessionInput.with(session.getId().getValue());
+        CompleteWaterFlowSessionInput input = CompleteWaterFlowSessionInput.with(session.getId());
 
         Mockito.when(repository.findById(input.getId())).thenAnswer(a -> session);
 
