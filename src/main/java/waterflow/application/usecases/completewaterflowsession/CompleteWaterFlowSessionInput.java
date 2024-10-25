@@ -1,16 +1,15 @@
 package waterflow.application.usecases.completewaterflowsession;
 
 import core.valueobjects.ID;
-import core.valueobjects.UUID;
 
 public class CompleteWaterFlowSessionInput {
     private final ID id;
 
-    private CompleteWaterFlowSessionInput(String id) {
-        this.id = UUID.from(id);
+    private CompleteWaterFlowSessionInput(ID id) {
+        this.id = id;
     }
 
-    public static CompleteWaterFlowSessionInput with(String id) {
+    public static CompleteWaterFlowSessionInput with(ID id) {
         return new CompleteWaterFlowSessionInput(id);
     }
 

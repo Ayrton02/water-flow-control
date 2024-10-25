@@ -1,7 +1,6 @@
 package waterflow.application.usecases.createwaterflowsession;
 
 import core.valueobjects.ID;
-import core.valueobjects.UUID;
 
 public class CreateWaterFlowSessionInput {
     private final ID pumpId;
@@ -14,11 +13,11 @@ public class CreateWaterFlowSessionInput {
         this.sourceId = sourceId;
     }
 
-    public static CreateWaterFlowSessionInput with(String pumpId, String containerId, String sourceId) {
+    public static CreateWaterFlowSessionInput with(ID pumpId, ID containerId, ID sourceId) {
         return new CreateWaterFlowSessionInput(
-                UUID.from(pumpId),
-                UUID.from(containerId),
-                UUID.from(sourceId)
+                pumpId,
+                containerId,
+                sourceId
         );
     }
 

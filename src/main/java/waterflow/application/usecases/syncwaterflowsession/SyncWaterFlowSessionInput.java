@@ -1,7 +1,6 @@
 package waterflow.application.usecases.syncwaterflowsession;
 
 import core.valueobjects.ID;
-import core.valueobjects.UUID;
 
 public class SyncWaterFlowSessionInput {
     private final ID id;
@@ -10,10 +9,8 @@ public class SyncWaterFlowSessionInput {
         this.id = id;
     }
 
-    public static SyncWaterFlowSessionInput with(String id) {
-        return new SyncWaterFlowSessionInput(
-                UUID.from(id)
-        );
+    public static SyncWaterFlowSessionInput with(ID id) {
+        return new SyncWaterFlowSessionInput(id);
     }
 
     public ID getId() {

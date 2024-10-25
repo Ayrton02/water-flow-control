@@ -61,9 +61,9 @@ public class CreateWaterFlowSessionUseCaseTest {
         );
 
         CreateWaterFlowSessionInput input = CreateWaterFlowSessionInput.with(
-                pump.getId().getValue(),
-                container.getId().getValue(),
-                source.getId().getValue()
+                pump.getId(),
+                container.getId(),
+                source.getId()
         );
 
         when(repository.findPumpById(input.getPumpId())).thenAnswer(a -> pump);
