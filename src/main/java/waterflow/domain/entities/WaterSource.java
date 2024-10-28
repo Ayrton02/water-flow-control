@@ -6,20 +6,21 @@ import waterflow.domain.exceptions.SafetyThresholdException;
 import core.valueobjects.ID;
 import core.valueobjects.UUID;
 import waterflow.domain.valueobjects.Volume;
+import waterflow.domain.valueobjects.WaterComponent;
 
-public abstract class WaterSource<T extends Volume<T>> extends BaseEntity {
+public abstract class WaterSource<T extends Volume<T>> extends BaseEntity implements WaterComponent {
     private final T maxCapacity;
     private final T safetyThreshold;
-    private T currentVolume;
+    private final T currentVolume;
 
-    WaterSource(T maxCapacity, T safetyThreshold, T currentVolume) {
+    protected WaterSource(T maxCapacity, T safetyThreshold, T currentVolume) {
         super(UUID.generate());
         this.maxCapacity = maxCapacity;
         this.safetyThreshold = safetyThreshold;
         this.currentVolume = currentVolume;
     }
 
-    WaterSource(ID id, T maxCapacity, T safetyThreshold, T currentVolume) {
+    protected WaterSource(ID id, T maxCapacity, T safetyThreshold, T currentVolume) {
         super(id);
         this.maxCapacity = maxCapacity;
         this.safetyThreshold = safetyThreshold;
@@ -32,6 +33,10 @@ public abstract class WaterSource<T extends Volume<T>> extends BaseEntity {
 
     public T getSafetyThreshold() {
         return safetyThreshold;
+    }
+
+    public T getMaxCapacity() {
+        return maxCapacity;
     }
 
     public T dump(T volume) throws SafetyThresholdException, NegativeVolumeException {

@@ -1,6 +1,7 @@
 package waterflow.domain.entities;
 
 import core.valueobjects.ID;
+import waterflow.domain.enums.VolumeType;
 import waterflow.domain.valueobjects.Liter;
 
 public class LiterWaterSource extends WaterSource<Liter> {
@@ -11,5 +12,10 @@ public class LiterWaterSource extends WaterSource<Liter> {
 
     public LiterWaterSource(ID id, Liter maxCapacity, Liter safetyThreshold, Liter currentVolume) {
         super(id, maxCapacity, safetyThreshold, currentVolume);
+    }
+
+    @Override
+    public VolumeType getVolumeType() {
+        return VolumeType.LITER;
     }
 }
