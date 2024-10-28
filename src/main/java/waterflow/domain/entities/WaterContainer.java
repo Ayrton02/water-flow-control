@@ -3,10 +3,11 @@ package waterflow.domain.entities;
 import core.baseclasses.BaseEntity;
 import core.valueobjects.ID;
 import core.valueobjects.UUID;
-import waterflow.domain.valueobjects.Volume;
 import waterflow.domain.exceptions.WaterOverFlowException;
+import waterflow.domain.valueobjects.Volume;
+import waterflow.domain.valueobjects.WaterComponent;
 
-public abstract class WaterContainer<T extends Volume<T>> extends BaseEntity {
+public abstract class WaterContainer<T extends Volume<T>> extends BaseEntity implements WaterComponent {
     private final T maxCapacity;
     private T currentVolume;
 
