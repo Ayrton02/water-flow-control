@@ -5,8 +5,9 @@ import core.valueobjects.ID;
 import core.valueobjects.UUID;
 import waterflow.domain.valueobjects.Volume;
 import waterflow.domain.valueobjects.VolumeFlow;
+import waterflow.domain.valueobjects.WaterComponent;
 
-public abstract class WaterPump<T extends Volume<T>> extends BaseEntity {
+public abstract class WaterPump<T extends Volume<T>> extends BaseEntity implements WaterComponent {
     private VolumeFlow<T> volumeFlow;
     private boolean isActive = false;
 
