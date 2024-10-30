@@ -1,14 +1,13 @@
 package waterflow.domain.valueobjects;
 
 import core.valueobjects.DateTime;
-
-import java.util.concurrent.TimeUnit;
+import waterflow.domain.enums.TimeMeasurementUnit;
 
 public abstract class VolumeFlow<T extends Volume<T>> {
         protected final T volume;
-        protected final TimeUnit timeUnit;
+        protected final TimeMeasurementUnit timeUnit;
 
-        VolumeFlow(T volume, TimeUnit timeUnit) {
+        VolumeFlow(T volume, TimeMeasurementUnit timeUnit) {
             this.volume = volume;
             this.timeUnit = timeUnit;
         }
@@ -17,7 +16,7 @@ public abstract class VolumeFlow<T extends Volume<T>> {
                 return volume;
         }
 
-        public TimeUnit getTimeUnit() {
+        public TimeMeasurementUnit getTimeUnit() {
                 return timeUnit;
         }
 
@@ -28,4 +27,5 @@ public abstract class VolumeFlow<T extends Volume<T>> {
          * @param endDate end date of flow
          */
         public abstract T calculateFlowByTimeElapsed(DateTime startDate, DateTime endDate);
+        public abstract String getUnit();
 }
