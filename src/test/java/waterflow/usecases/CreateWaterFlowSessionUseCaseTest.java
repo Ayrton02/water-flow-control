@@ -14,10 +14,9 @@ import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSess
 import waterflow.domain.entities.LiterWaterContainer;
 import waterflow.domain.entities.LiterWaterPump;
 import waterflow.domain.entities.LiterWaterSource;
+import waterflow.domain.enums.TimeMeasurementUnit;
 import waterflow.domain.valueobjects.Liter;
 import waterflow.domain.valueobjects.LiterFlow;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.mockito.Mockito.*;
 
@@ -54,7 +53,7 @@ public class CreateWaterFlowSessionUseCaseTest {
         );
         LiterFlow literFlow = new LiterFlow(
                 new Liter(1d),
-                TimeUnit.SECONDS
+                TimeMeasurementUnit.SECONDS
         );
         LiterWaterPump pump = new LiterWaterPump(
                 literFlow
