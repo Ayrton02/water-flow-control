@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
+import user.domain.entities.User;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionInput;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionOutput;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionRepository;
@@ -58,8 +59,9 @@ public class SyncWaterFlowSessionUseCaseTest {
         LiterWaterPump pump = new LiterWaterPump(
                 literFlow
         );
+        User user = new User("Fulaninho", "999.999.999-99");
 
-        WaterFlowSession session = WaterFlowSession.create(source, container, pump);
+        WaterFlowSession session = WaterFlowSession.create(source, container, pump, user.getId());
 
         DateTime firstTime = DateTime.parse("2024-10-09T21:00:00");
         DateTime secondTime = DateTime.parse("2024-10-09T21:00:05");

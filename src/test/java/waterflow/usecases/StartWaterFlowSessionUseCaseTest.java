@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
+import user.domain.entities.User;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionInput;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionRepository;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionUseCase;
@@ -57,6 +58,7 @@ public class StartWaterFlowSessionUseCaseTest {
         LiterWaterPump pump = new LiterWaterPump(
                 literFlow
         );
+        User user = new User("Fulaninho", "999.999.999-99");
 
         DateTime firstTime = DateTime.parse("2024-10-09T21:00:00");
         DateTime secondTime = DateTime.parse("2024-10-09T21:00:05");
@@ -64,7 +66,7 @@ public class StartWaterFlowSessionUseCaseTest {
         try (MockedStatic<DateTime> mockedDateTime = mockStatic(DateTime.class)) {
             mockedDateTime.when(DateTime::now).thenReturn(firstTime);
 
-            WaterFlowSession session = WaterFlowSession.create(source, container, pump);
+            WaterFlowSession session = WaterFlowSession.create(source, container, pump, user.getId());
 
             StartWaterFlowSessionInput input = StartWaterFlowSessionInput.with(session.getId());
 

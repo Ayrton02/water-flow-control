@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import user.application.usecases.finduser.FindUserRepository;
+import user.domain.entities.User;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionInput;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionOutput;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
@@ -26,6 +28,9 @@ public class CreateWaterFlowSessionUseCaseTest {
 
     @Mock()
     private CreateWaterFlowSessionRepository<Liter> repository;
+
+    @Mock()
+    private FindUserRepository findUserRepository;
 
     @InjectMocks()
     private CreateWaterFlowSessionUseCase useCase;
@@ -59,15 +64,19 @@ public class CreateWaterFlowSessionUseCaseTest {
                 literFlow
         );
 
+        User user = new User("Zézim", "000.000.000-00");
+
         CreateWaterFlowSessionInput input = CreateWaterFlowSessionInput.with(
                 pump.getId(),
                 container.getId(),
-                source.getId()
+                source.getId(),
+                user.getId()
         );
 
         when(repository.findPumpById(input.getPumpId())).thenAnswer(a -> pump);
         when(repository.findContainerById(input.getContainerId())).thenAnswer(a -> container);
         when(repository.findSourceById(input.getSourceId())).thenAnswer(a -> source);
+        when(findUserRepository.findUser(input.getUserId())).thenAnswer(a -> user);
 
         CreateWaterFlowSessionOutput output = this.useCase.execute(input);
 

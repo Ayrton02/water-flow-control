@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import user.domain.entities.User;
 import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionInput;
 import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionRepository;
 import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionUseCase;
@@ -57,8 +58,9 @@ public class CompleteWaterFlowSessionUseCaseTest {
         LiterWaterPump pump = new LiterWaterPump(
                 literFlow
         );
+        User user = new User("Fulaninho", "999.999.999-99");
 
-        WaterFlowSession session = WaterFlowSession.create(source, container, pump);
+        WaterFlowSession session = WaterFlowSession.create(source, container, pump, user.getId());
         session.start();
 
         CompleteWaterFlowSessionInput input = CompleteWaterFlowSessionInput.with(session.getId());

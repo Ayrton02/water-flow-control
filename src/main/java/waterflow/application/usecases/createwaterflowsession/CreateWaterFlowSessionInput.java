@@ -6,18 +6,21 @@ public class CreateWaterFlowSessionInput {
     private final ID pumpId;
     private final ID containerId;
     private final ID sourceId;
+    private final ID userId;
 
-    private CreateWaterFlowSessionInput(ID pumpId, ID containerId, ID sourceId) {
+    private CreateWaterFlowSessionInput(ID pumpId, ID containerId, ID sourceId, ID userId) {
         this.pumpId = pumpId;
         this.containerId = containerId;
         this.sourceId = sourceId;
+        this.userId = userId;
     }
 
-    public static CreateWaterFlowSessionInput with(ID pumpId, ID containerId, ID sourceId) {
+    public static CreateWaterFlowSessionInput with(ID pumpId, ID containerId, ID sourceId, ID userId) {
         return new CreateWaterFlowSessionInput(
                 pumpId,
                 containerId,
-                sourceId
+                sourceId,
+                userId
         );
     }
 
@@ -31,5 +34,9 @@ public class CreateWaterFlowSessionInput {
 
     public ID getContainerId() {
         return containerId;
+    }
+
+    public ID getUserId() {
+        return userId;
     }
 }

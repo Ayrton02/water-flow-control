@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import user.domain.entities.User;
 import waterflow.domain.enums.TimeMeasurementUnit;
 import waterflow.domain.valueobjects.Liter;
 import waterflow.domain.valueobjects.LiterFlow;
@@ -18,7 +19,8 @@ public class WaterFlowSessionTest {
         LiterWaterPump pump = new LiterWaterPump(new LiterFlow(new Liter(1d), TimeMeasurementUnit.SECONDS));
         LiterWaterContainer container = new LiterWaterContainer(new Liter(10000d), new Liter(0d));
         LiterWaterSource source = new LiterWaterSource(new Liter(2000d), new Liter(10d), new Liter(2000d));
-        WaterFlowSession session = WaterFlowSession.create(source, container, pump);
+        User user = new User("Zezim", "000.000.000-00");
+        WaterFlowSession session = WaterFlowSession.create(source, container, pump, user.getId());
 
         DateTime firstTime = DateTime.parse("2024-10-09T21:00:00");
         DateTime secondTime = DateTime.parse("2024-10-09T21:00:05");
