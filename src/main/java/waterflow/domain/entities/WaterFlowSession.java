@@ -15,6 +15,7 @@ public class WaterFlowSession extends BaseEntity {
     private final WaterPump WATER_PUMP;
     private final WaterSource WATER_SOURCE;
     private final WaterContainer WATER_CONTAINER;
+    private final ID userId;
 
     private enum WaterFlowSessionStatus {
         OFF,
@@ -33,21 +34,24 @@ public class WaterFlowSession extends BaseEntity {
             ID id,
             WaterContainer<T> container,
             WaterSource<T> source,
-            WaterPump<T> pump
+            WaterPump<T> pump,
+            ID userId
     ) {
         super(id);
         this.WATER_CONTAINER = container;
         this.WATER_SOURCE = source;
         this.WATER_PUMP = pump;
         this.status = WaterFlowSessionStatus.OFF;
+        this.userId = userId;
     }
 
     public static <T extends Volume<T>> WaterFlowSession create(
             WaterSource<T> source,
             WaterContainer<T> container,
-            WaterPump<T> pump
+            WaterPump<T> pump,
+            ID userId
     ) {
-        return new WaterFlowSession(UUID.generate(), container, source, pump);
+        return new WaterFlowSession(UUID.generate(), container, source, pump, userId);
     }
 
     public DateTime getStartedAt() {
@@ -72,6 +76,10 @@ public class WaterFlowSession extends BaseEntity {
 
     public String getStatus() {
         return this.status.name();
+    }
+
+    public ID getUserId() {
+        return userId;
     }
 
     public void start() {

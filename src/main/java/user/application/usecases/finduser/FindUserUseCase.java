@@ -4,9 +4,9 @@ import user.domain.entities.User;
 import user.domain.exceptions.UserNotFoundException;
 
 public class FindUserUseCase implements IFindUserUseCase {
-    private final FindUserUseCaseRepository repository;
+    private final FindUserRepository repository;
 
-    public FindUserUseCase(FindUserUseCaseRepository repository) {
+    public FindUserUseCase(FindUserRepository repository) {
         this.repository = repository;
     }
 
