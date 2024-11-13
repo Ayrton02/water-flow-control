@@ -1,36 +1,21 @@
 package user.application.usecases.createuser;
 
-import core.valueobjects.DateTime;
 import user.domain.entities.User;
 
-public class CreateUserOutput {
-    private final String name;
-    private final String documentNumber;
-    private final DateTime createdAt;
-
-    private CreateUserOutput(String name, String documentNumber, DateTime createdAt) {
-        this.name = name;
-        this.documentNumber = documentNumber;
-        this.createdAt = createdAt;
-    }
-
+public record CreateUserOutput (
+        String id,
+        String name,
+        String documentNumber,
+        String createdAt,
+        String updatedAt
+) {
     static CreateUserOutput from(User user) {
         return new CreateUserOutput(
+                user.getId().getValue(),
                 user.getName(),
-                user.getDocumentNumber().toString(),
-                user.getCreatedAt()
+                user.getDocumentNumber().getValue(),
+                user.getCreatedAt().toString(),
+                user.getUpdatedAt().toString()
         );
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDocumentNumber() {
-        return documentNumber;
-    }
-
-    public DateTime getCreatedAt() {
-        return createdAt;
     }
 }

@@ -11,7 +11,7 @@ public class FindUserUseCase implements IFindUserUseCase {
     }
 
     public FindUserOutput execute(FindUserInput input) {
-        User user = this.repository.findUser(input.getId());
+        User user = this.repository.findUser(input.id());
 
         if (user == null) {
             throw new UserNotFoundException();
