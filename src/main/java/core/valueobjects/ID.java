@@ -1,5 +1,7 @@
 package core.valueobjects;
 
+import java.util.Objects;
+
 public abstract class ID {
     protected String value;
 
@@ -12,5 +14,14 @@ public abstract class ID {
 
     public String getValue() {
         return this.value;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ID)) {
+            return false;
+        }
+
+        return Objects.equals(((ID) obj).value, this.value);
     }
 }
