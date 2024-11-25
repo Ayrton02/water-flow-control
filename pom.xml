@@ -6,37 +6,7 @@
 
     <groupId>com.github.ayrton02.waterflowcontrol</groupId>
     <artifactId>water-flow-control</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-jdbc-h2</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>prd</id>
-            <activation>
-                <property>
-                    <name>environment</name>
-                    <value>prd</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-jdbc-postgresql</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
+    <version>0.0-SNAPSHOT</version>
 
     <properties>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
@@ -90,6 +60,10 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm-panache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
         </dependency>
     </dependencies>
 
