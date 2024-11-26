@@ -1,9 +1,9 @@
 package core.exception;
 
-public class BaseException extends RuntimeException {
-    protected final String code;
-    protected final String message;
-    protected final Integer httpCode;
+public abstract class BaseException extends RuntimeException {
+    private final String code;
+    private final String message;
+    private final Integer httpCode;
 
     public BaseException(String message, String code) {
         super(message);
@@ -31,5 +31,18 @@ public class BaseException extends RuntimeException {
         this.message = message;
         this.code = code;
         this.httpCode = httpCode;
+    }
+
+    public Integer getHttpCode() {
+        return httpCode;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
     }
 }
