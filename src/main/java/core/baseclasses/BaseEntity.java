@@ -5,7 +5,7 @@ import core.valueobjects.ID;
 
 public abstract class BaseEntity {
     private final ID id;
-    private final DateTime createdAt;
+    private DateTime createdAt;
     private DateTime updatedAt;
 
     protected BaseEntity(ID id) {
@@ -28,5 +28,9 @@ public abstract class BaseEntity {
 
     public void setUpdatedAt(DateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
