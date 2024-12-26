@@ -7,9 +7,9 @@ import waterflow.domain.entities.WaterSource;
 import core.valueobjects.ID;
 import waterflow.domain.valueobjects.Volume;
 
-public interface CreateWaterFlowSessionRepository<T extends Volume<T>> {
-    WaterPump<T> findPumpById(ID id);
+public interface CreateWaterFlowSessionRepository {
+    WaterPump findPumpById(ID id);
     void save(WaterFlowSession session);
-    WaterSource<T> findSourceById(ID id);
-    WaterContainer<T> findContainerById(ID id);
+    WaterSource findSourceById(ID id);
+    WaterContainer findContainerById(ID id);
 }

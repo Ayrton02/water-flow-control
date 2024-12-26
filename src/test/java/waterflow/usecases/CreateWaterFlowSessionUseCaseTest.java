@@ -27,7 +27,7 @@ public class CreateWaterFlowSessionUseCaseTest {
     private AutoCloseable closeable;
 
     @Mock()
-    private CreateWaterFlowSessionRepository<Liter> repository;
+    private CreateWaterFlowSessionRepository repository;
 
     @Mock()
     private FindUserRepository findUserRepository;
