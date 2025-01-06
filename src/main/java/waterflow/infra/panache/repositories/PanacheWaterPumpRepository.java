@@ -19,7 +19,7 @@ public class PanacheWaterPumpRepository {
     return entity.map(this::toModel).orElse(null);
   }
 
-  private WaterPump toModel(PanacheWaterPumpEntity entity) {
+  WaterPump toModel(PanacheWaterPumpEntity entity) {
     WaterPump pump = WaterPumpFactory.createWaterPump(
         entity.getVolume(),
         TimeMeasurementUnit.fromString(entity.getTimeUnit()),

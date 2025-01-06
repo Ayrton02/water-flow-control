@@ -18,7 +18,7 @@ public class PanacheWaterContainerRepository {
     return entity.map(this::toModel).orElse(null);
   }
 
-  private WaterContainer toModel(PanacheWaterContainerEntity entity) {
+  WaterContainer toModel(PanacheWaterContainerEntity entity) {
     WaterContainer container = WaterContainerFactory.createWaterContainer(
         entity.getMaxCapacity(),
         entity.getCurrentVolume(),

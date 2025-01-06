@@ -1,6 +1,7 @@
 package waterflow.presenters.mappers;
 
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionOutput;
+import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionOutput;
 import waterflow.presenters.dto.WaterFlowSessionResponseDTO;
 
 public class WaterFlowSessionMapper {
@@ -15,4 +16,15 @@ public class WaterFlowSessionMapper {
             output.getUserId()
         );
     }
+
+  public static WaterFlowSessionResponseDTO toResponseDTO(StartWaterFlowSessionOutput output) {
+      return new WaterFlowSessionResponseDTO(
+          output.getId(),
+          output.getCreatedAt(),
+          output.getStartedAt(),
+          null,
+          output.getStatus(),
+          output.getUserId()
+      );
+  }
 }

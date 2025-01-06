@@ -1,10 +1,7 @@
 package waterflow.presenters.controller;
 
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import waterflow.application.service.WaterFlowSessionService;
 import waterflow.presenters.dto.WaterFlowSessionRequestDTO;
@@ -21,5 +18,12 @@ public class WaterFlowSessionController {
     @Produces(MediaType.APPLICATION_JSON)
     public WaterFlowSessionResponseDTO createSession(WaterFlowSessionRequestDTO request) {
         return this.service.createSession(request);
+    }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}/start")
+    public WaterFlowSessionResponseDTO startSession(@PathParam("id") String id) {
+        return this.service.startSession(id);
     }
 }

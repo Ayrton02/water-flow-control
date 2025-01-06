@@ -25,6 +25,18 @@ public class PanacheWaterFlowSessionEntity extends PanacheEntityBase {
   @JoinColumn(name = "user_id")
   private PanacheUserEntity user;
 
+  @OneToOne
+  @JoinColumn(name = "container_id")
+  private PanacheWaterContainerEntity container;
+
+  @OneToOne
+  @JoinColumn(name = "pump_id")
+  private PanacheWaterPumpEntity pump;
+
+  @OneToOne
+  @JoinColumn(name = "source_id")
+  private PanacheWaterSourceEntity source;
+
   @Column(name = "created_at")
   private LocalDateTime createdAt;
 
@@ -39,6 +51,9 @@ public class PanacheWaterFlowSessionEntity extends PanacheEntityBase {
       LocalDateTime finishedAt,
       String status,
       PanacheUserEntity user,
+      PanacheWaterSourceEntity source,
+      PanacheWaterContainerEntity container,
+      PanacheWaterPumpEntity pump,
       LocalDateTime createdAt,
       LocalDateTime updatedAt
       ) {
@@ -47,6 +62,9 @@ public class PanacheWaterFlowSessionEntity extends PanacheEntityBase {
     this.finishedAt = finishedAt;
     this.status = status;
     this.user = user;
+    this.source = source;
+    this.container = container;
+    this.pump = pump;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -89,6 +107,30 @@ public class PanacheWaterFlowSessionEntity extends PanacheEntityBase {
 
   public void setUser(PanacheUserEntity user) {
     this.user = user;
+  }
+
+  public PanacheWaterContainerEntity getContainer() {
+    return container;
+  }
+
+  public void setContainer(PanacheWaterContainerEntity container) {
+    this.container = container;
+  }
+
+  public PanacheWaterPumpEntity getPump() {
+    return pump;
+  }
+
+  public void setPump(PanacheWaterPumpEntity pump) {
+    this.pump = pump;
+  }
+
+  public PanacheWaterSourceEntity getSource() {
+    return source;
+  }
+
+  public void setSource(PanacheWaterSourceEntity source) {
+    this.source = source;
   }
 
   public LocalDateTime getCreatedAt() {

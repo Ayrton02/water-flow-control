@@ -18,7 +18,7 @@ public class PanacheWaterSourceRepository {
     return entity.map(this::toModel).orElse(null);
   }
 
-  private WaterSource toModel(PanacheWaterSourceEntity entity) {
+  WaterSource toModel(PanacheWaterSourceEntity entity) {
     WaterSource source = WaterSourceFactory.createWaterSource(
         entity.getMaxCapacity(),
         entity.getSafetyThreshold(),
