@@ -68,7 +68,6 @@ public class PanacheWaterFlowRepository implements CreateWaterFlowSessionReposit
   }
 
   @Override
-  @Transactional
   public WaterContainer findContainerById(ID id) {
     return this.containerRepository.findContainerById(id);
   }
