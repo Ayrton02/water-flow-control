@@ -7,6 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import user.infra.panache.entities.PanacheUserEntity;
+import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionRepository;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionRepository;
 import waterflow.domain.entities.WaterContainer;
@@ -21,7 +22,7 @@ import waterflow.infra.panache.entities.PanacheWaterSourceEntity;
 import java.util.Optional;
 
 @ApplicationScoped
-public class PanacheWaterFlowRepository implements CreateWaterFlowSessionRepository, StartWaterFlowSessionRepository {
+public class PanacheWaterFlowRepository implements CreateWaterFlowSessionRepository, StartWaterFlowSessionRepository, CompleteWaterFlowSessionRepository {
   private final PanacheWaterSourceRepository sourceRepository;
   private final PanacheWaterContainerRepository containerRepository;
   private final PanacheWaterPumpRepository pumpRepository;
@@ -46,6 +47,13 @@ public class PanacheWaterFlowRepository implements CreateWaterFlowSessionReposit
   public WaterFlowSession findById(ID id) {
     Optional<PanacheWaterFlowSessionEntity> entity = PanacheWaterFlowSessionEntity.find("id", id.getValue()).firstResultOptional();
     return entity.map(this::toModel).orElse(null);
+  }
+
+  @Override
+  @Transactional
+  public void save(WaterFlowSession session, WaterPump pump) {
+    PanacheWaterFlowSessionEntity.persist(this.toEntity(session));
+    this.pumpRepository.save(pump);
   }
 
   @Override

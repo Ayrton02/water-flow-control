@@ -26,4 +26,11 @@ public class WaterFlowSessionController {
     public WaterFlowSessionResponseDTO startSession(@PathParam("id") String id) {
         return this.service.startSession(id);
     }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}/complete")
+    public WaterFlowSessionResponseDTO completeSession(@PathParam("id") String id) {
+        return this.service.completeSession(id);
+    }
 }

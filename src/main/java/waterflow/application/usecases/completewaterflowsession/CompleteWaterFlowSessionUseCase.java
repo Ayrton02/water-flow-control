@@ -7,7 +7,7 @@ public class CompleteWaterFlowSessionUseCase implements ICompleteWaterFlowSessio
 
     private CompleteWaterFlowSessionRepository repository;
 
-    CompleteWaterFlowSessionUseCase(CompleteWaterFlowSessionRepository repository) {
+    public CompleteWaterFlowSessionUseCase(CompleteWaterFlowSessionRepository repository) {
         this.repository = repository;
     }
 

@@ -3,6 +3,9 @@ package waterflow.configuration;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import user.application.usecases.finduser.FindUserRepository;
+import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionRepository;
+import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionUseCase;
+import waterflow.application.usecases.completewaterflowsession.ICompleteWaterFlowSessionUseCase;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionUseCase;
 import waterflow.application.usecases.createwaterflowsession.ICreateWaterFlowSessionUseCase;
@@ -24,5 +27,10 @@ public class UseCaseConfig {
   @Produces
   public IStartWaterFlowSessionUseCase startWaterFlowSessionUseCase(StartWaterFlowSessionRepository repository) {
     return new StartWaterFlowSessionUseCase(repository);
+  }
+
+  @Produces
+  public ICompleteWaterFlowSessionUseCase completeWaterFlowSessionUseCase(CompleteWaterFlowSessionRepository repository) {
+    return new CompleteWaterFlowSessionUseCase(repository);
   }
 }

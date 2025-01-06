@@ -3,6 +3,7 @@ package waterflow.infra.panache.repositories;
 import core.valueobjects.DateTime;
 import core.valueobjects.ID;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import waterflow.domain.entities.WaterPump;
 import waterflow.domain.enums.TimeMeasurementUnit;
 import waterflow.domain.enums.VolumeType;
@@ -19,6 +20,11 @@ public class PanacheWaterPumpRepository {
     return entity.map(this::toModel).orElse(null);
   }
 
+  @Transactional
+  public void save(WaterPump pump) {
+    PanacheWaterPumpEntity.persist(this.toEntity(pump));
+  }
+
   WaterPump toModel(PanacheWaterPumpEntity entity) {
     WaterPump pump = WaterPumpFactory.createWaterPump(
         entity.getVolume(),
@@ -28,5 +34,16 @@ public class PanacheWaterPumpRepository {
     pump.setCreatedAt(DateTime.parse(entity.getCreatedAt().toString()));
     pump.setUpdatedAt(DateTime.parse(entity.getUpdatedAt().toString()));
     return pump;
+  }
+
+  PanacheWaterPumpEntity toEntity(WaterPump model) {
+    return new PanacheWaterPumpEntity(
+        model.getId().toString(),
+        model.getVolumeType().name(),
+        model.getVolumeFlow().getVolume().getValue(),
+        model.getVolumeFlow().getTimeUnit().name(),
+        model.getCreatedAt().toLocalDateTime(),
+        model.getUpdatedAt().toLocalDateTime()
+    );
   }
 }
