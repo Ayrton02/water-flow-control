@@ -3,6 +3,8 @@ package waterflow.presenters.mappers;
 import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionOutput;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionOutput;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionOutput;
+import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionOutput;
+import waterflow.presenters.dto.SyncWaterFlowSessionResponseDTO;
 import waterflow.presenters.dto.WaterFlowSessionResponseDTO;
 
 public class WaterFlowSessionMapper {
@@ -38,5 +40,17 @@ public class WaterFlowSessionMapper {
           output.getStatus(),
           output.getUserId()
       );
+  }
+
+  public static SyncWaterFlowSessionResponseDTO toResponseDTO(SyncWaterFlowSessionOutput output) {
+    return new SyncWaterFlowSessionResponseDTO(
+        output.getId(),
+        output.getCreatedAt(),
+        output.getStartedAt(),
+        output.getStatus(),
+        output.getContainerVolume(),
+        output.getSourceVolume(),
+        output.getUserId()
+    );
   }
 }

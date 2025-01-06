@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import waterflow.application.service.WaterFlowSessionService;
+import waterflow.presenters.dto.SyncWaterFlowSessionResponseDTO;
 import waterflow.presenters.dto.WaterFlowSessionRequestDTO;
 import waterflow.presenters.dto.WaterFlowSessionResponseDTO;
 
@@ -32,5 +33,12 @@ public class WaterFlowSessionController {
     @Path("/{id}/complete")
     public WaterFlowSessionResponseDTO completeSession(@PathParam("id") String id) {
         return this.service.completeSession(id);
+    }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}/sync")
+    public SyncWaterFlowSessionResponseDTO syncSession(@PathParam("id") String id) {
+        return this.service.syncSession(id);
     }
 }
