@@ -6,6 +6,9 @@ import user.application.usecases.finduser.FindUserRepository;
 import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionRepository;
 import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionUseCase;
 import waterflow.application.usecases.completewaterflowsession.ICompleteWaterFlowSessionUseCase;
+import waterflow.application.usecases.createwatercontainer.CreateWaterContainerRepository;
+import waterflow.application.usecases.createwatercontainer.CreateWaterContainerUseCase;
+import waterflow.application.usecases.createwatercontainer.ICreateWaterContainerUseCase;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionUseCase;
 import waterflow.application.usecases.createwaterflowsession.ICreateWaterFlowSessionUseCase;
@@ -48,5 +51,10 @@ public class UseCaseConfig {
   @Produces
   public ICreateWaterPumpUseCase createWaterPumpUseCase(CreateWaterPumpRepository repository) {
     return new CreateWaterPumpUseCase(repository);
+  }
+
+  @Produces
+  public ICreateWaterContainerUseCase createWaterContainerUseCase(CreateWaterContainerRepository repository) {
+    return new CreateWaterContainerUseCase(repository);
   }
 }

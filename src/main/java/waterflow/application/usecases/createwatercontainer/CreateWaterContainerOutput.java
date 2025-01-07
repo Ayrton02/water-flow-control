@@ -8,28 +8,32 @@ public class CreateWaterContainerOutput {
     private final Double currentCapacity;
     private final String type;
     private final String createdAt;
+    private final String updatedAt;
 
     private CreateWaterContainerOutput(
             String id,
             Double maxCapacity,
             Double currentCapacity,
             String type,
-            String createdAt
+            String createdAt,
+            String updatedAt
     ) {
         this.id = id;
         this.maxCapacity = maxCapacity;
         this.currentCapacity = currentCapacity;
         this.type = type;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     static CreateWaterContainerOutput with(WaterContainer container) {
         return new CreateWaterContainerOutput(
-                container.getId().getValue(),
-                container.getMaxCapacity().getValue(),
-                container.getCurrentVolume().getValue(),
-                container.getVolumeType().name(),
-                container.getCreatedAt().toString()
+            container.getId().getValue(),
+            container.getMaxCapacity().getValue(),
+            container.getCurrentVolume().getValue(),
+            container.getVolumeType().name(),
+            container.getCreatedAt().toString(),
+            container.getUpdatedAt().toString()
         );
     }
 
@@ -51,5 +55,9 @@ public class CreateWaterContainerOutput {
 
     public String getCreatedAt() {
         return createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 }

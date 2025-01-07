@@ -1,7 +1,5 @@
 package waterflow.domain.exceptions;
 
-import io.netty.handler.codec.dns.AbstractDnsRecord;
-
 public enum ExceptionCodes {
     NEGATIVE_VOLUME,
     WATER_OVERFLOW,
