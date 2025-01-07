@@ -20,7 +20,6 @@ public class PanacheUserRepository implements FindUserRepository, CreateUserRepo
     }
 
     @Override
-    @Transactional
     public User findUser(ID id) {
         Optional<PanacheUserEntity> entity = PanacheUserEntity.find("id", id.getValue()).firstResultOptional();
         return entity.map(this::toModel).orElse(null);
@@ -30,7 +29,9 @@ public class PanacheUserRepository implements FindUserRepository, CreateUserRepo
         return new PanacheUserEntity(
                 user.getId().getValue(),
                 user.getDocumentNumber().getValue(),
-                user.getName()
+                user.getName(),
+                user.getCreatedAt().toLocalDateTime(),
+                user.getUpdatedAt().toLocalDateTime()
         );
     }
 

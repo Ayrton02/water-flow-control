@@ -1,0 +1,44 @@
+package waterflow.configuration;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import user.application.usecases.finduser.FindUserRepository;
+import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionRepository;
+import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionUseCase;
+import waterflow.application.usecases.completewaterflowsession.ICompleteWaterFlowSessionUseCase;
+import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
+import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionUseCase;
+import waterflow.application.usecases.createwaterflowsession.ICreateWaterFlowSessionUseCase;
+import waterflow.application.usecases.startwaterflowsession.IStartWaterFlowSessionUseCase;
+import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionRepository;
+import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionUseCase;
+import waterflow.application.usecases.syncwaterflowsession.ISyncWaterFlowSessionUseCase;
+import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionRepository;
+import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionUseCase;
+
+@ApplicationScoped
+public class UseCaseConfig {
+
+  @Produces
+  public ICreateWaterFlowSessionUseCase createWaterFlowSessionUseCase(
+      CreateWaterFlowSessionRepository repository,
+      FindUserRepository findUserRepository
+  ) {
+    return new CreateWaterFlowSessionUseCase(repository, findUserRepository);
+  }
+
+  @Produces
+  public IStartWaterFlowSessionUseCase startWaterFlowSessionUseCase(StartWaterFlowSessionRepository repository) {
+    return new StartWaterFlowSessionUseCase(repository);
+  }
+
+  @Produces
+  public ICompleteWaterFlowSessionUseCase completeWaterFlowSessionUseCase(CompleteWaterFlowSessionRepository repository) {
+    return new CompleteWaterFlowSessionUseCase(repository);
+  }
+
+  @Produces
+  public ISyncWaterFlowSessionUseCase syncWaterFlowSessionUseCase(SyncWaterFlowSessionRepository repository) {
+    return new SyncWaterFlowSessionUseCase(repository);
+  }
+}

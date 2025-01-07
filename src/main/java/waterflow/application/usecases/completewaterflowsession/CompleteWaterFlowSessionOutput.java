@@ -8,13 +8,15 @@ public class CompleteWaterFlowSessionOutput {
     private final String finishedAt;
     private final String status;
     private final String id;
+    private final String userId;
 
-    private CompleteWaterFlowSessionOutput(String id, String createdAt, String startedAt, String finishedAt, String status) {
+    private CompleteWaterFlowSessionOutput(String id, String createdAt, String startedAt, String finishedAt, String status, String userId) {
         this.id = id;
         this.createdAt = createdAt;
         this.startedAt = startedAt;
         this.finishedAt = finishedAt;
         this.status = status;
+        this.userId = userId;
     }
 
     static CompleteWaterFlowSessionOutput from(WaterFlowSession session) {
@@ -23,7 +25,8 @@ public class CompleteWaterFlowSessionOutput {
                 session.getCreatedAt().toString(),
                 session.getStartedAt().toString(),
                 session.getFinishedAt().toString(),
-                session.getStatus()
+                session.getStatus(),
+                session.getUserId().toString()
         );
     }
 
@@ -45,5 +48,9 @@ public class CompleteWaterFlowSessionOutput {
 
     public String getId() {
         return id;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }

@@ -7,7 +7,7 @@ public class SyncWaterFlowSessionUseCase implements ISyncWaterFlowSessionUseCase
 
     private SyncWaterFlowSessionRepository repository;
 
-    SyncWaterFlowSessionUseCase(SyncWaterFlowSessionRepository repository) {
+    public SyncWaterFlowSessionUseCase(SyncWaterFlowSessionRepository repository) {
         this.repository = repository;
     }
 

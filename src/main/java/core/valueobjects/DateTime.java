@@ -23,6 +23,10 @@ public class DateTime {
         return this.value.isBefore(date.value);
     }
 
+    public LocalDateTime toLocalDateTime() {
+        return this.value;
+    }
+
     public static DateTime now() {
         return new DateTime(LocalDateTime.now(Clock.systemDefaultZone()));
     }
