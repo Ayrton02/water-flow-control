@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import user.infra.panache.entities.PanacheUserEntity;
 import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionRepository;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
+import waterflow.application.usecases.findwaterflowsession.FindWaterFlowSessionRepository;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionRepository;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionRepository;
 import waterflow.domain.entities.WaterContainer;
@@ -27,7 +28,8 @@ public class PanacheWaterFlowRepository implements
     CreateWaterFlowSessionRepository,
     StartWaterFlowSessionRepository,
     CompleteWaterFlowSessionRepository,
-    SyncWaterFlowSessionRepository
+    SyncWaterFlowSessionRepository,
+    FindWaterFlowSessionRepository
 {
   private final PanacheWaterSourceRepository sourceRepository;
   private final PanacheWaterContainerRepository containerRepository;

@@ -2,8 +2,10 @@ package waterflow.presenters.mappers;
 
 import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionOutput;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionOutput;
+import waterflow.application.usecases.findwaterflowsession.FindWaterFlowSessionOutput;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionOutput;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionOutput;
+import waterflow.presenters.dto.FindWaterFlowSessionResponseDTO;
 import waterflow.presenters.dto.SyncWaterFlowSessionResponseDTO;
 import waterflow.presenters.dto.WaterFlowSessionResponseDTO;
 
@@ -51,6 +53,21 @@ public class WaterFlowSessionMapper {
         output.getContainerVolume(),
         output.getSourceVolume(),
         output.getUserId()
+    );
+  }
+
+  public static FindWaterFlowSessionResponseDTO toResponseDTO(FindWaterFlowSessionOutput output) {
+    return new FindWaterFlowSessionResponseDTO(
+        output.getId(),
+        output.getStartedAt(),
+        output.getFinishedAt(),
+        output.getStatus(),
+        output.getContainerId(),
+        output.getSourceId(),
+        output.getPumpId(),
+        output.getUserId(),
+        output.getCreatedAt(),
+        output.getUpdatedAt()
     );
   }
 }
