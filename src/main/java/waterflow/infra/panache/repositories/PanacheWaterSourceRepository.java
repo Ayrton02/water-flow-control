@@ -4,6 +4,7 @@ import core.valueobjects.DateTime;
 import core.valueobjects.ID;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import waterflow.application.usecases.createwatersource.CreateWaterSourceRepository;
 import waterflow.domain.entities.WaterSource;
 import waterflow.domain.enums.VolumeType;
 import waterflow.domain.factories.WaterSourceFactory;
@@ -12,7 +13,7 @@ import waterflow.infra.panache.entities.PanacheWaterSourceEntity;
 import java.util.Optional;
 
 @ApplicationScoped
-public class PanacheWaterSourceRepository {
+public class PanacheWaterSourceRepository implements CreateWaterSourceRepository {
 
   public WaterSource findSourceById(ID id) {
     Optional<PanacheWaterSourceEntity> entity = PanacheWaterSourceEntity.find("id", id.getValue()).firstResultOptional();

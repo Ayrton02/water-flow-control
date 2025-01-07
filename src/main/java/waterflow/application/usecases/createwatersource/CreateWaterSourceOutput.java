@@ -9,14 +9,16 @@ public class CreateWaterSourceOutput {
     private final Double currentCapacity;
     private final String type;
     private final String createdAt;
+    private final String updatedAt;
 
     private CreateWaterSourceOutput(
-            String id,
-            Double maxCapacity,
-            Double safetyThreshold,
-            Double currentCapacity,
-            String type,
-            String createdAt
+        String id,
+        Double maxCapacity,
+        Double safetyThreshold,
+        Double currentCapacity,
+        String type,
+        String createdAt,
+        String updatedAt
     ) {
         this.id = id;
         this.maxCapacity = maxCapacity;
@@ -24,16 +26,18 @@ public class CreateWaterSourceOutput {
         this.currentCapacity = currentCapacity;
         this.type = type;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     static CreateWaterSourceOutput with(WaterSource source) {
         return new CreateWaterSourceOutput(
-                source.getId().getValue(),
-                source.getMaxCapacity().getValue(),
-                source.getSafetyThreshold().getValue(),
-                source.getCurrentVolume().getValue(),
-                source.getVolumeType().name(),
-                source.getCreatedAt().toString()
+            source.getId().getValue(),
+            source.getMaxCapacity().getValue(),
+            source.getSafetyThreshold().getValue(),
+            source.getCurrentVolume().getValue(),
+            source.getVolumeType().name(),
+            source.getCreatedAt().toString(),
+            source.getUpdatedAt().toString()
         );
     }
 
@@ -59,5 +63,9 @@ public class CreateWaterSourceOutput {
 
     public String getCreatedAt() {
         return createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 }
