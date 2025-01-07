@@ -4,6 +4,7 @@ import core.valueobjects.DateTime;
 import core.valueobjects.ID;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import waterflow.application.usecases.createwaterpump.CreateWaterPumpRepository;
 import waterflow.domain.entities.WaterPump;
 import waterflow.domain.enums.TimeMeasurementUnit;
 import waterflow.domain.enums.VolumeType;
@@ -13,7 +14,7 @@ import waterflow.infra.panache.entities.PanacheWaterPumpEntity;
 import java.util.Optional;
 
 @ApplicationScoped
-public class PanacheWaterPumpRepository {
+public class PanacheWaterPumpRepository implements CreateWaterPumpRepository {
 
   public WaterPump findPumpById(ID id) {
     Optional<PanacheWaterPumpEntity> entity = PanacheWaterPumpEntity.find("id", id.getValue()).firstResultOptional();

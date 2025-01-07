@@ -14,7 +14,7 @@ public class CreateWaterPumpInput {
         this.type = type;
     }
 
-    static CreateWaterPumpInput with(
+    public static CreateWaterPumpInput with(
             Double volume,
             TimeMeasurementUnit timeUnit,
             VolumeType type
