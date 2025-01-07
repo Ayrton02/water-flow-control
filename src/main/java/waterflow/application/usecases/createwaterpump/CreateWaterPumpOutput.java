@@ -6,27 +6,34 @@ public class CreateWaterPumpOutput {
     private final String id;
     private final String flow;
     private final String type;
+    private final Boolean isActive;
     private final String createdAt;
+    private final String updatedAt;
 
     private CreateWaterPumpOutput(
-            String id,
-            String flow,
-            String type,
-            String createdAt
+        String id,
+        String flow,
+        String type,
+        Boolean isActive,
+        String createdAt,
+        String updatedAt
     ) {
         this.id = id;
         this.flow = flow;
         this.type = type;
+        this.isActive = isActive;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     static CreateWaterPumpOutput with(WaterPump pump) {
         return new CreateWaterPumpOutput(
-                pump.getId().getValue(),
-                pump.getVolumeFlow().getUnit(),
-                pump.getVolumeType().name(),
-                pump.getCreatedAt().toString()
-        );
+            pump.getId().getValue(),
+            pump.getVolumeFlow().getUnit(),
+            pump.getVolumeType().name(),
+            pump.isActive(),
+            pump.getCreatedAt().toString(),
+            pump.getUpdatedAt().toString());
     }
 
     public String getId() {
@@ -41,7 +48,15 @@ public class CreateWaterPumpOutput {
         return type;
     }
 
+    public Boolean getActive() {
+        return isActive;
+    }
+
     public String getCreatedAt() {
         return createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 }
