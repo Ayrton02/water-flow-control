@@ -1,5 +1,7 @@
 package waterflow.domain.enums;
 
+import waterflow.domain.exceptions.InvalidTimeMeasurementUnitException;
+
 import java.util.concurrent.TimeUnit;
 
 public enum TimeMeasurementUnit {
@@ -25,12 +27,12 @@ public enum TimeMeasurementUnit {
     }
 
     public static TimeMeasurementUnit fromString(String any) {
-        switch (any.toUpperCase()) {
-            case "MILLISECONDS": return TimeMeasurementUnit.MILLISECONDS;
-            case "SECONDS": return TimeMeasurementUnit.SECONDS;
-            case "MINUTES": return TimeMeasurementUnit.MINUTES;
-            case "HOURS": return TimeMeasurementUnit.HOURS;
-            default: return null;
-        }
+      return switch (any.toUpperCase()) {
+        case "MILLISECONDS" -> TimeMeasurementUnit.MILLISECONDS;
+        case "SECONDS" -> TimeMeasurementUnit.SECONDS;
+        case "MINUTES" -> TimeMeasurementUnit.MINUTES;
+        case "HOURS" -> TimeMeasurementUnit.HOURS;
+        default -> throw new InvalidTimeMeasurementUnitException();
+      };
     }
 }
