@@ -15,7 +15,7 @@ Variables
 ```shell
 export DB_USER=water-flow-control
 export DB_PASSWORD=water-flow-control
-export DB_URL=db=jdbc:postgresql://localhost:5432/water-flow-control
+export DB_URL=jdbc:postgresql://localhost:5432/water-flow-control
 ```
 
 Compile
