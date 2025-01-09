@@ -1,5 +1,6 @@
 package waterflow.application.usecases.startwaterflowsession;
 
+import core.valueobjects.DateTime;
 import waterflow.domain.entities.WaterFlowSession;
 
 public class StartWaterFlowSessionOutput {
@@ -27,7 +28,7 @@ public class StartWaterFlowSessionOutput {
         return new StartWaterFlowSessionOutput(
             session.getId().getValue(),
             session.getCreatedAt().toString(),
-            session.getStartedAt().toString(),
+            session.getStartedAt().map(DateTime::toString).orElse(null),
             session.getStatus(),
             session.getUserId().getValue()
         );

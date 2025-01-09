@@ -21,19 +21,19 @@ public class PanacheWaterFlowSessionEntity extends PanacheEntityBase {
   @Column(name = "finished_at")
   private LocalDateTime finishedAt;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "user_id")
   private PanacheUserEntity user;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "container_id")
   private PanacheWaterContainerEntity container;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "pump_id")
   private PanacheWaterPumpEntity pump;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "source_id")
   private PanacheWaterSourceEntity source;
 

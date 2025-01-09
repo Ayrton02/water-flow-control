@@ -2,6 +2,7 @@ package waterflow.infra.panache.repositories;
 
 import core.valueobjects.DateTime;
 import core.valueobjects.ID;
+import core.valueobjects.UUID;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import waterflow.application.usecases.createwaterpump.CreateWaterPumpRepository;
@@ -28,9 +29,10 @@ public class PanacheWaterPumpRepository implements CreateWaterPumpRepository {
 
   WaterPump toModel(PanacheWaterPumpEntity entity) {
     WaterPump pump = WaterPumpFactory.createWaterPump(
+        UUID.from(entity.getId()),
         entity.getVolume(),
-        TimeMeasurementUnit.fromString(entity.getTimeUnit()),
-        VolumeType.fromString(entity.getType())
+        TimeMeasurementUnit.valueOf(entity.getTimeUnit().toUpperCase()),
+        VolumeType.valueOf(entity.getType().toUpperCase())
     );
     pump.setCreatedAt(DateTime.parse(entity.getCreatedAt().toString()));
     pump.setUpdatedAt(DateTime.parse(entity.getUpdatedAt().toString()));

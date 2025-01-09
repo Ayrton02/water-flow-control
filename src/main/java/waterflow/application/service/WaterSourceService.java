@@ -25,7 +25,7 @@ public class WaterSourceService {
                 request.maxCapacity(),
                 request.safetyThreshold(),
                 request.currentCapacity(),
-                VolumeType.fromString(request.type())
+                VolumeType.valueOf(request.type().toUpperCase())
             )
         )
     );

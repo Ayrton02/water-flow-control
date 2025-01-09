@@ -25,14 +25,4 @@ public enum TimeMeasurementUnit {
     public String getShortDescription() {
         return this.shortDescription;
     }
-
-    public static TimeMeasurementUnit fromString(String any) {
-      return switch (any.toUpperCase()) {
-        case "MILLISECONDS" -> TimeMeasurementUnit.MILLISECONDS;
-        case "SECONDS" -> TimeMeasurementUnit.SECONDS;
-        case "MINUTES" -> TimeMeasurementUnit.MINUTES;
-        case "HOURS" -> TimeMeasurementUnit.HOURS;
-        default -> throw new InvalidTimeMeasurementUnitException();
-      };
-    }
 }

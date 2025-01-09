@@ -1,5 +1,6 @@
 package waterflow.domain.factories;
 
+import core.valueobjects.ID;
 import waterflow.domain.entities.LiterWaterSource;
 import waterflow.domain.entities.WaterSource;
 import waterflow.domain.enums.VolumeType;
@@ -17,6 +18,25 @@ public class WaterSourceFactory {
                     new Liter(maxCapacity),
                     new Liter(safetyThreshold),
                     new Liter(currentCapacity)
+            );
+        }
+
+        throw new RuntimeException("Type not supported");
+    }
+
+    public static WaterSource createWaterSource(
+        ID id,
+        Double maxCapacity,
+        Double safetyThreshold,
+        Double currentCapacity,
+        VolumeType type
+    ) {
+        if (type == VolumeType.LITER) {
+            return new LiterWaterSource(
+                id,
+                new Liter(maxCapacity),
+                new Liter(safetyThreshold),
+                new Liter(currentCapacity)
             );
         }
 
