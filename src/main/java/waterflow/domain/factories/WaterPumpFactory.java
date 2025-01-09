@@ -1,5 +1,6 @@
 package waterflow.domain.factories;
 
+import core.valueobjects.ID;
 import waterflow.domain.entities.LiterWaterPump;
 import waterflow.domain.entities.WaterPump;
 import waterflow.domain.enums.TimeMeasurementUnit;
@@ -16,6 +17,22 @@ public class WaterPumpFactory {
         if (type == VolumeType.LITER) {
             return new LiterWaterPump(
                     new LiterFlow(new Liter(volume), timeUnit)
+            );
+        }
+
+        throw new RuntimeException("Type not supported");
+    }
+
+    public static WaterPump createWaterPump(
+        ID id,
+        Double volume,
+        TimeMeasurementUnit timeUnit,
+        VolumeType type
+    ) {
+        if (type == VolumeType.LITER) {
+            return new LiterWaterPump(
+                id,
+                new LiterFlow(new Liter(volume), timeUnit)
             );
         }
 

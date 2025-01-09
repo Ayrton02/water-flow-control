@@ -1,5 +1,6 @@
 package waterflow.application.usecases.syncwaterflowsession;
 
+import core.valueobjects.DateTime;
 import waterflow.domain.entities.WaterFlowSession;
 
 public class SyncWaterFlowSessionOutput {
@@ -33,7 +34,7 @@ public class SyncWaterFlowSessionOutput {
         return new SyncWaterFlowSessionOutput(
             session.getId().getValue(),
             session.getCreatedAt().toString(),
-            session.getStartedAt().toString(),
+            session.getStartedAt().map(DateTime::toString).orElse(null),
             session.getStatus(),
             session.getWaterContainer().getCurrentVolume().getValue(),
             session.getWaterSource().getCurrentVolume().getValue(),

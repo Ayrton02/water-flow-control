@@ -6,6 +6,7 @@ import core.valueobjects.UUID;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import user.domain.exceptions.UserNotFoundException;
 import user.infra.panache.entities.PanacheUserEntity;
 import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlowSessionRepository;
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
@@ -16,6 +17,9 @@ import waterflow.domain.entities.WaterContainer;
 import waterflow.domain.entities.WaterFlowSession;
 import waterflow.domain.entities.WaterPump;
 import waterflow.domain.entities.WaterSource;
+import waterflow.domain.exceptions.WaterContainerNotFoundException;
+import waterflow.domain.exceptions.WaterPumpNotFoundException;
+import waterflow.domain.exceptions.WaterSourceNotFoundException;
 import waterflow.infra.panache.entities.PanacheWaterContainerEntity;
 import waterflow.infra.panache.entities.PanacheWaterFlowSessionEntity;
 import waterflow.infra.panache.entities.PanacheWaterPumpEntity;
@@ -24,7 +28,7 @@ import waterflow.infra.panache.entities.PanacheWaterSourceEntity;
 import java.util.Optional;
 
 @ApplicationScoped
-public class PanacheWaterFlowRepository implements
+public class PanacheWaterFlowSessionRepository implements
     CreateWaterFlowSessionRepository,
     StartWaterFlowSessionRepository,
     CompleteWaterFlowSessionRepository,
@@ -36,7 +40,7 @@ public class PanacheWaterFlowRepository implements
   private final PanacheWaterPumpRepository pumpRepository;
 
   @Inject
-  PanacheWaterFlowRepository(
+  PanacheWaterFlowSessionRepository(
       PanacheWaterSourceRepository sourceRepository,
       PanacheWaterPumpRepository pumpRepository,
       PanacheWaterContainerRepository containerRepository
@@ -60,7 +64,7 @@ public class PanacheWaterFlowRepository implements
   @Override
   @Transactional
   public void save(WaterFlowSession session, WaterContainer container, WaterSource source, WaterPump pump) {
-    PanacheWaterFlowSessionEntity.persist(session);
+    PanacheWaterFlowSessionEntity.persist(this.toEntity(session));
     this.containerRepository.save(container);
     this.sourceRepository.save(source);
     this.pumpRepository.save(pump);
@@ -90,20 +94,30 @@ public class PanacheWaterFlowRepository implements
   }
 
   private PanacheWaterFlowSessionEntity toEntity(WaterFlowSession session) {
-    PanacheUserEntity user = new PanacheUserEntity();
-    PanacheWaterSourceEntity source = new PanacheWaterSourceEntity();
-    PanacheWaterContainerEntity container = new PanacheWaterContainerEntity();
-    PanacheWaterPumpEntity pump = new PanacheWaterPumpEntity();
+    PanacheUserEntity user =
+        (PanacheUserEntity) PanacheUserEntity.findByIdOptional(
+            session.getUserId().getValue()
+        ).orElseThrow(UserNotFoundException::new);
 
-    user.setId(session.getUserId().getValue());
-    source.setId(session.getWaterSource().getId().getValue());
-    container.setId(session.getWaterContainer().getId().getValue());
-    pump.setId(session.getWaterPump().getId().getValue());
+    PanacheWaterSourceEntity source =
+        (PanacheWaterSourceEntity) PanacheWaterSourceEntity.findByIdOptional(
+            session.getWaterSource().getId().getValue()
+        ).orElseThrow(WaterSourceNotFoundException::new);
+
+    PanacheWaterContainerEntity container =
+        (PanacheWaterContainerEntity) PanacheWaterContainerEntity.findByIdOptional(
+            session.getWaterContainer().getId().getValue()
+        ).orElseThrow(WaterContainerNotFoundException::new);
+
+    PanacheWaterPumpEntity pump =
+        (PanacheWaterPumpEntity) PanacheWaterPumpEntity.findByIdOptional(
+            session.getWaterPump().getId().getValue()
+        ).orElseThrow(WaterPumpNotFoundException::new);
 
     return new PanacheWaterFlowSessionEntity(
         session.getId().getValue(),
-        session.getStartedAt().toLocalDateTime(),
-        session.getFinishedAt().toLocalDateTime(),
+        session.getStartedAt().map(DateTime::toLocalDateTime).orElse(null),
+        session.getFinishedAt().map(DateTime::toLocalDateTime).orElse(null),
         session.getStatus(),
         user,
         source,
@@ -115,15 +129,18 @@ public class PanacheWaterFlowRepository implements
   }
 
   private WaterFlowSession toModel(PanacheWaterFlowSessionEntity entity) {
-    WaterFlowSession session = WaterFlowSession.create(
+    WaterFlowSession session = new WaterFlowSession(
+        UUID.from(entity.getId()),
+        this.pumpRepository.toModel(entity.getPump()),
         this.sourceRepository.toModel(entity.getSource()),
         this.containerRepository.toModel(entity.getContainer()),
-        this.pumpRepository.toModel(entity.getPump()),
-        UUID.from(entity.getUser().getId())
+        UUID.from(entity.getUser().getId()),
+        entity.getStartedAt() != null ? DateTime.parse(entity.getStartedAt().toString()) : null,
+        entity.getFinishedAt() != null ? DateTime.parse(entity.getFinishedAt().toString()) : null,
+        entity.getStatus()
     );
-
     session.setCreatedAt(DateTime.parse(entity.getCreatedAt().toString()));
-    session.setUpdatedAt(DateTime.parse(session.getUpdatedAt().toString()));
+    session.setUpdatedAt(DateTime.parse(entity.getUpdatedAt().toString()));
     return session;
   }
 }

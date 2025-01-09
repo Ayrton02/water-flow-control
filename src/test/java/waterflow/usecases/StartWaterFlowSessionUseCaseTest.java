@@ -75,7 +75,7 @@ public class StartWaterFlowSessionUseCaseTest {
             mockedDateTime.when(DateTime::now).thenReturn(secondTime);
 
             this.usecase.execute(input);
-            Assert.assertTrue(session.getStartedAt().isAfter(session.getCreatedAt()));
+            Assert.assertTrue(session.getStartedAt().get().isAfter(session.getCreatedAt()));
         }
     }
 }

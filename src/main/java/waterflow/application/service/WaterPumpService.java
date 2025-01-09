@@ -24,8 +24,8 @@ public class WaterPumpService {
       this.createWaterPumpUseCase.execute(
           CreateWaterPumpInput.with(
               request.volume(),
-              TimeMeasurementUnit.fromString(request.unit()),
-              VolumeType.fromString(request.type())
+              TimeMeasurementUnit.valueOf(request.unit().toUpperCase()),
+              VolumeType.valueOf(request.type().toUpperCase())
           )
       )
     );

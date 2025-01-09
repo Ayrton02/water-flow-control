@@ -11,6 +11,8 @@ import waterflow.domain.exceptions.WaterFlowSessionException;
 import waterflow.domain.valueobjects.Volume;
 import waterflow.domain.valueobjects.VolumeFlow;
 
+import java.util.Optional;
+
 public class WaterFlowSession extends BaseEntity {
     private final WaterPump WATER_PUMP;
     private final WaterSource WATER_SOURCE;
@@ -45,6 +47,26 @@ public class WaterFlowSession extends BaseEntity {
         this.userId = userId;
     }
 
+    public WaterFlowSession(
+        ID id,
+        WaterPump WATER_PUMP,
+        WaterSource WATER_SOURCE,
+        WaterContainer WATER_CONTAINER,
+        ID userId,
+        DateTime startedAt,
+        DateTime finishedAt,
+        String status
+    ) {
+        super(id);
+        this.WATER_PUMP = WATER_PUMP;
+        this.WATER_SOURCE = WATER_SOURCE;
+        this.WATER_CONTAINER = WATER_CONTAINER;
+        this.userId = userId;
+        this.startedAt = startedAt;
+        this.finishedAt = finishedAt;
+        this.status = WaterFlowSessionStatus.valueOf(status.toUpperCase());
+    }
+
     public static <T extends Volume<T>> WaterFlowSession create(
             WaterSource<T> source,
             WaterContainer<T> container,
@@ -54,12 +76,12 @@ public class WaterFlowSession extends BaseEntity {
         return new WaterFlowSession(UUID.generate(), container, source, pump, userId);
     }
 
-    public DateTime getStartedAt() {
-        return startedAt;
+    public Optional<DateTime> getStartedAt() {
+        return Optional.ofNullable(startedAt);
     }
 
-    public DateTime getFinishedAt() {
-        return finishedAt;
+    public Optional<DateTime> getFinishedAt() {
+        return Optional.ofNullable(finishedAt);
     }
 
     public WaterContainer getWaterContainer() {

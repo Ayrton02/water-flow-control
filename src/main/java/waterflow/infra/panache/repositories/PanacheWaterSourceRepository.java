@@ -2,6 +2,7 @@ package waterflow.infra.panache.repositories;
 
 import core.valueobjects.DateTime;
 import core.valueobjects.ID;
+import core.valueobjects.UUID;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import waterflow.application.usecases.createwatersource.CreateWaterSourceRepository;
@@ -27,10 +28,11 @@ public class PanacheWaterSourceRepository implements CreateWaterSourceRepository
 
   WaterSource toModel(PanacheWaterSourceEntity entity) {
     WaterSource source = WaterSourceFactory.createWaterSource(
+        UUID.from(entity.getId()),
         entity.getMaxCapacity(),
         entity.getSafetyThreshold(),
         entity.getCurrentVolume(),
-        VolumeType.fromString(entity.getType())
+        VolumeType.valueOf(entity.getType().toUpperCase())
     );
     source.setCreatedAt(DateTime.parse(entity.getCreatedAt().toString()));
     source.setUpdatedAt(DateTime.parse(entity.getUpdatedAt().toString()));

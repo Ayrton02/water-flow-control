@@ -24,7 +24,7 @@ public class WaterContainerService {
           CreateWaterContainerInput.with(
               request.maxCapacity(),
               request.currentCapacity(),
-              VolumeType.fromString(request.type())
+              VolumeType.valueOf(request.type().toUpperCase())
           )
       )
     );
