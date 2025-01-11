@@ -18,13 +18,27 @@ export DB_PASSWORD=water-flow-control
 export DB_URL=jdbc:postgresql://localhost:5432/water-flow-control
 ```
 
+### Executing Locally
+
 Compile
 
 ```shell
-mvn compile quarkus:build
+mvn clean package
 ```
 
 Run
 ```shell
-mvn quarkus:run
+java -jar ./target/quarkus-app/quarkus-run.jar
+```
+
+### Docker
+
+Build Image
+```shell
+docker build -t water-flow-control .
+```
+
+Run Container
+```shell
+docker run --env-file .env water-flow-control
 ```
