@@ -25,4 +25,13 @@ public class LiterFlow extends VolumeFlow<Liter> {
     public String getUnit() {
         return this.volume.getValue().toString() + "L/" + this.timeUnit.getShortDescription();
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "LiterFlow[volume=%s, timeUnit=%s]",
+            this.volume.toString(),
+            this.timeUnit.toString()
+        );
+    }
 }

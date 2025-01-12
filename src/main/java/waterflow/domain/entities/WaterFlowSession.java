@@ -154,4 +154,32 @@ public class WaterFlowSession extends BaseEntity {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "WaterFlowSession[" +
+                "id=%s, " +
+                "waterPump=%s, " +
+                "waterSource=%s, " +
+                "waterContainer=%s, " +
+                "userId=%s, " +
+                "startedAt=%s, " +
+                "finishedAt=%s, " +
+                "status=%s, " +
+                "createdAt=%s, " +
+                "updatedAt=%s" +
+                "]",
+            this.getId().toString(),
+            this.getWaterPump().toString(),
+            this.getWaterSource().toString(),
+            this.getWaterContainer().toString(),
+            this.userId.toString(),
+            this.getStartedAt().map(DateTime::toString).orElse(null),
+            this.getFinishedAt().map(DateTime::toString).orElse(null),
+            this.status.name(),
+            this.getCreatedAt().toString(),
+            this.getUpdatedAt().toString()
+        );
+    }
 }

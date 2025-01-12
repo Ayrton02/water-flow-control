@@ -33,4 +33,7 @@ public abstract class BaseEntity {
     public void setCreatedAt(DateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public abstract String toString();
 }

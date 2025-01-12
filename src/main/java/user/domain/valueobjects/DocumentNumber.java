@@ -18,4 +18,12 @@ public class DocumentNumber {
     public String getValue() {
         return this.value;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "DocumentNumber[value=%s]",
+            this.value
+        );
+    }
 }

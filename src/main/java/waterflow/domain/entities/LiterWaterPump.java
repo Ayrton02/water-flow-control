@@ -24,4 +24,16 @@ public class LiterWaterPump extends WaterPump<Liter> {
     public VolumeType getVolumeType() {
         return VolumeType.LITER;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "LiterWaterPump[id=%s, volumeFlow=%s, isActive=%b, createdAt=%s, updatedAt=%s]",
+            this.getId().toString(),
+            this.getVolumeFlow().toString(),
+            this.isActive(),
+            this.getCreatedAt().toString(),
+            this.getUpdatedAt().toString()
+        );
+    }
 }

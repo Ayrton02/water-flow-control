@@ -28,4 +28,16 @@ public class User extends BaseEntity {
     public DocumentNumber getDocumentNumber() {
         return documentNumber;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "User[id=%s, name=%s, documentNumber=%s, createdAt=%s, updatedAt=%s]",
+            this.getId().toString(),
+            this.name,
+            this.documentNumber.toString(),
+            this.getCreatedAt().toString(),
+            this.getUpdatedAt().toString()
+        );
+    }
 }
