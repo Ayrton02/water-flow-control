@@ -18,4 +18,17 @@ public class LiterWaterSource extends WaterSource<Liter> {
     public VolumeType getVolumeType() {
         return VolumeType.LITER;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "LiterWaterSource[id=%s, maxCapacity=%s, safetyThreshold=%s, currentVolume=%s, createdAt=%s, updatedAt=%s]",
+            this.getId().toString(),
+            this.getMaxCapacity().toString(),
+            this.getSafetyThreshold().toString(),
+            this.getCurrentVolume().toString(),
+            this.getCreatedAt().toString(),
+            this.getUpdatedAt().toString()
+        );
+    }
 }

@@ -17,4 +17,16 @@ public class LiterWaterContainer extends WaterContainer<Liter>{
     public VolumeType getVolumeType() {
         return VolumeType.LITER;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "LiterWaterContainer[id=%s, maxCapacity=%s, currentCapacity=%s, createdAt=%s, updatedAt=%s]",
+            this.getId().toString(),
+            this.getMaxCapacity().toString(),
+            this.getCurrentVolume().toString(),
+            this.getCreatedAt().toString(),
+            this.getUpdatedAt().toString()
+        );
+    }
 }

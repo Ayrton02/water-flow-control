@@ -1,5 +1,6 @@
 package waterflow.usecases;
 
+import infra.logger.LoggerImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,6 +29,9 @@ public class CreateWaterFlowSessionUseCaseTest {
 
     @Mock()
     private CreateWaterFlowSessionRepository repository;
+
+    @Mock()
+    private final LoggerImpl logger = new LoggerImpl(CreateWaterFlowSessionUseCaseTest.class);
 
     @Mock()
     private FindUserRepository findUserRepository;

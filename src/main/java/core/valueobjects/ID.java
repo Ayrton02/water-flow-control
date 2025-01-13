@@ -24,4 +24,12 @@ public abstract class ID {
 
         return Objects.equals(((ID) obj).value, this.value);
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "ID[value=%s]",
+            value
+        );
+    }
 }

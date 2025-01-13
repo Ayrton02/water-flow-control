@@ -35,4 +35,12 @@ public class Liter implements Volume<Liter> {
     public int compareTo(Liter liter) {
         return this.value.compareTo(liter.getValue());
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "Liter[value=%.2f]",
+            this.value
+        );
+    }
 }
