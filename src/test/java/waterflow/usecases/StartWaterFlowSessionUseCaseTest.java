@@ -1,6 +1,7 @@
 package waterflow.usecases;
 
 import core.valueobjects.DateTime;
+import infra.logger.LoggerImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,6 +30,9 @@ public class StartWaterFlowSessionUseCaseTest {
 
     @Mock()
     private StartWaterFlowSessionRepository repository;
+
+    @Mock()
+    private final LoggerImpl logger = new LoggerImpl(StartWaterFlowSessionUseCaseTest.class);
 
     @Before()
     public void setup() {
