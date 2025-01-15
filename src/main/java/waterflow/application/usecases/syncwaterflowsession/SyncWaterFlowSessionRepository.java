@@ -8,5 +8,5 @@ import core.valueobjects.ID;
 
 public interface SyncWaterFlowSessionRepository {
     WaterFlowSession findById(ID id);
-    void save(WaterFlowSession session, WaterContainer container, WaterSource source, WaterPump pump);
+    void save(WaterFlowSession session);
 }

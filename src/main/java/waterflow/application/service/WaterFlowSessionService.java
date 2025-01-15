@@ -1,5 +1,6 @@
 package waterflow.application.service;
 
+import core.valueobjects.ID;
 import core.valueobjects.UUID;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -13,11 +14,14 @@ import waterflow.application.usecases.startwaterflowsession.IStartWaterFlowSessi
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionInput;
 import waterflow.application.usecases.syncwaterflowsession.ISyncWaterFlowSessionUseCase;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionInput;
+import waterflow.infra.panache.repositories.PanacheWaterFlowSessionRepository;
 import waterflow.presenters.dto.FindWaterFlowSessionResponseDTO;
 import waterflow.presenters.dto.SyncWaterFlowSessionResponseDTO;
 import waterflow.presenters.dto.WaterFlowSessionRequestDTO;
 import waterflow.presenters.dto.WaterFlowSessionResponseDTO;
 import waterflow.presenters.mappers.WaterFlowSessionMapper;
+
+import java.util.List;
 
 @ApplicationScoped
 public class WaterFlowSessionService {
@@ -26,6 +30,7 @@ public class WaterFlowSessionService {
     private final ICompleteWaterFlowSessionUseCase completeWaterFlowSessionUseCase;
     private final ISyncWaterFlowSessionUseCase syncWaterFlowSessionUseCase;
     private final IFindWaterFlowSessionUseCase findWaterFlowSessionUseCase;
+    private final PanacheWaterFlowSessionRepository repository;
 
     @Inject
     public WaterFlowSessionService(
@@ -33,13 +38,15 @@ public class WaterFlowSessionService {
         IStartWaterFlowSessionUseCase startWaterFlowSessionUseCase,
         ICompleteWaterFlowSessionUseCase completeWaterFlowSessionUseCase,
         ISyncWaterFlowSessionUseCase syncWaterFlowSessionUseCase,
-        IFindWaterFlowSessionUseCase findWaterFlowSessionUseCase
+        IFindWaterFlowSessionUseCase findWaterFlowSessionUseCase,
+        PanacheWaterFlowSessionRepository repository
     ) {
         this.createWaterFlowSessionUseCase = createWaterFlowSessionUseCase;
         this.startWaterFlowSessionUseCase = startWaterFlowSessionUseCase;
         this.completeWaterFlowSessionUseCase = completeWaterFlowSessionUseCase;
         this.syncWaterFlowSessionUseCase = syncWaterFlowSessionUseCase;
         this.findWaterFlowSessionUseCase = findWaterFlowSessionUseCase;
+        this.repository = repository;
     }
 
     public WaterFlowSessionResponseDTO createSession(WaterFlowSessionRequestDTO request) {
@@ -93,5 +100,9 @@ public class WaterFlowSessionService {
                 )
             )
         );
+    }
+
+    public List<ID> findActiveIds() {
+        return this.repository.findActiveIds();
     }
 }

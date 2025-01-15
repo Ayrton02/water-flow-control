@@ -48,20 +48,21 @@ public class SyncWaterFlowSessionUseCaseTest {
     @Test()
     public void shouldSyncWaterFlowSession() {
         LiterWaterContainer container = new LiterWaterContainer(
-                new Liter(100d),
-                new Liter(0d)
+            new Liter(100d),
+            new Liter(0d)
         );
         LiterWaterSource source = new LiterWaterSource(
-                new Liter(100d),
-                new Liter(0d),
-                new Liter(100d)
+            new Liter(100d),
+            new Liter(0d),
+            new Liter(100d)
         );
         LiterFlow literFlow = new LiterFlow(
-                new Liter(1d),
-                TimeMeasurementUnit.SECONDS
+            new Liter(1d),
+            TimeMeasurementUnit.SECONDS
         );
         LiterWaterPump pump = new LiterWaterPump(
-                literFlow
+            literFlow,
+            false
         );
         User user = new User("Fulaninho", "999.999.999-99");
 

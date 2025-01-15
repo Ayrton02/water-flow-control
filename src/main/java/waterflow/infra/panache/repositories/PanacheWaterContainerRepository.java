@@ -17,13 +17,13 @@ import java.util.Optional;
 public class PanacheWaterContainerRepository implements CreateWaterContainerRepository {
 
   public WaterContainer findContainerById(ID id) {
-    Optional<PanacheWaterContainerEntity> entity = PanacheWaterContainerEntity.find("id", id.getValue()).firstResultOptional();
+    Optional<PanacheWaterContainerEntity> entity = PanacheWaterContainerEntity.findByIdOptional(id.getValue());
     return entity.map(this::toModel).orElse(null);
   }
 
   @Transactional
   public void save(WaterContainer container) {
-    PanacheWaterContainerEntity.persist(this.toEntity(container));
+    PanacheWaterContainerEntity.persist(this.toPersistence(container));
   }
 
   WaterContainer toModel(PanacheWaterContainerEntity entity) {
@@ -38,14 +38,22 @@ public class PanacheWaterContainerRepository implements CreateWaterContainerRepo
     return container;
   }
 
-  PanacheWaterContainerEntity toEntity(WaterContainer model) {
-    return new PanacheWaterContainerEntity(
-        model.getId().toString(),
-        model.getVolumeType().name(),
-        model.getMaxCapacity().getValue(),
-        model.getCurrentVolume().getValue(),
-        model.getCreatedAt().toLocalDateTime(),
-        model.getUpdatedAt().toLocalDateTime()
+  PanacheWaterContainerEntity toPersistence(WaterContainer model) {
+    Optional<PanacheWaterContainerEntity> entity = PanacheWaterContainerEntity.findByIdOptional(model.getId().getValue());
+
+    return entity.map((e) -> {
+      e.setCurrentVolume(model.getCurrentVolume().getValue());
+      e.setMaxCapacity(model.getMaxCapacity().getValue());
+      return e;
+    }).orElse(
+        new PanacheWaterContainerEntity(
+            model.getId().getValue(),
+            model.getVolumeType().name(),
+            model.getMaxCapacity().getValue(),
+            model.getCurrentVolume().getValue(),
+            model.getCreatedAt().toLocalDateTime(),
+            model.getUpdatedAt().toLocalDateTime()
+        )
     );
   }
 }

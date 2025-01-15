@@ -17,9 +17,10 @@ public class CreateWaterPumpUseCase implements ICreateWaterPumpUseCase {
     public CreateWaterPumpOutput execute(CreateWaterPumpInput input) {
         this.logger.info("Creating water pump %s", input);
         WaterPump pump = WaterPumpFactory.createWaterPump(
-                input.getVolume(),
-                input.getTimeUnit(),
-                input.getType()
+            input.getVolume(),
+            input.getTimeUnit(),
+            input.getType(),
+            false
         );
 
         repository.save(pump);

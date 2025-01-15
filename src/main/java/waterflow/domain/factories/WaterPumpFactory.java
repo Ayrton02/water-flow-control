@@ -12,14 +12,15 @@ public class WaterPumpFactory {
     public static WaterPump createWaterPump(
             Double volume,
             TimeMeasurementUnit timeUnit,
-            VolumeType type
+            VolumeType type,
+            Boolean isActive
     ) {
         if (type == VolumeType.LITER) {
             return new LiterWaterPump(
-                    new LiterFlow(new Liter(volume), timeUnit)
+                new LiterFlow(new Liter(volume), timeUnit),
+                isActive
             );
         }
-
         throw new RuntimeException("Type not supported");
     }
 
@@ -27,16 +28,16 @@ public class WaterPumpFactory {
         ID id,
         Double volume,
         TimeMeasurementUnit timeUnit,
-        VolumeType type
+        VolumeType type,
+        Boolean isActive
     ) {
         if (type == VolumeType.LITER) {
             return new LiterWaterPump(
                 id,
-                new LiterFlow(new Liter(volume), timeUnit)
+                new LiterFlow(new Liter(volume), timeUnit),
+                isActive
             );
         }
-
         throw new RuntimeException("Type not supported");
     }
-
 }

@@ -52,29 +52,30 @@ public class CreateWaterFlowSessionUseCaseTest {
     @Test()
     public void shouldCreateWaterFlowSession() {
         LiterWaterContainer container = new LiterWaterContainer(
-                new Liter(100d),
-                new Liter(10d)
+            new Liter(100d),
+            new Liter(10d)
         );
         LiterWaterSource source = new LiterWaterSource(
-                new Liter(100d),
-                new Liter(0d),
-                new Liter(100d)
+            new Liter(100d),
+            new Liter(0d),
+            new Liter(100d)
         );
         LiterFlow literFlow = new LiterFlow(
-                new Liter(1d),
-                TimeMeasurementUnit.SECONDS
+            new Liter(1d),
+            TimeMeasurementUnit.SECONDS
         );
         LiterWaterPump pump = new LiterWaterPump(
-                literFlow
+            literFlow,
+            false
         );
 
         User user = new User("Zézim", "000.000.000-00");
 
         CreateWaterFlowSessionInput input = CreateWaterFlowSessionInput.with(
-                pump.getId(),
-                container.getId(),
-                source.getId(),
-                user.getId()
+            pump.getId(),
+            container.getId(),
+            source.getId(),
+            user.getId()
         );
 
         when(repository.findPumpById(input.getPumpId())).thenAnswer(a -> pump);

@@ -18,13 +18,13 @@ import java.util.Optional;
 public class PanacheWaterPumpRepository implements CreateWaterPumpRepository {
 
   public WaterPump findPumpById(ID id) {
-    Optional<PanacheWaterPumpEntity> entity = PanacheWaterPumpEntity.find("id", id.getValue()).firstResultOptional();
+    Optional<PanacheWaterPumpEntity> entity = PanacheWaterPumpEntity.findByIdOptional(id.getValue());
     return entity.map(this::toModel).orElse(null);
   }
 
   @Transactional
   public void save(WaterPump pump) {
-    PanacheWaterPumpEntity.persist(this.toEntity(pump));
+    PanacheWaterPumpEntity.persist(this.toPersistence(pump));
   }
 
   WaterPump toModel(PanacheWaterPumpEntity entity) {
@@ -32,21 +32,31 @@ public class PanacheWaterPumpRepository implements CreateWaterPumpRepository {
         UUID.from(entity.getId()),
         entity.getVolume(),
         TimeMeasurementUnit.valueOf(entity.getTimeUnit().toUpperCase()),
-        VolumeType.valueOf(entity.getType().toUpperCase())
+        VolumeType.valueOf(entity.getType().toUpperCase()),
+        entity.getActive()
     );
     pump.setCreatedAt(DateTime.parse(entity.getCreatedAt().toString()));
     pump.setUpdatedAt(DateTime.parse(entity.getUpdatedAt().toString()));
     return pump;
   }
 
-  PanacheWaterPumpEntity toEntity(WaterPump model) {
-    return new PanacheWaterPumpEntity(
-        model.getId().toString(),
-        model.getVolumeType().name(),
-        model.getVolumeFlow().getVolume().getValue(),
-        model.getVolumeFlow().getTimeUnit().name(),
-        model.getCreatedAt().toLocalDateTime(),
-        model.getUpdatedAt().toLocalDateTime()
+  PanacheWaterPumpEntity toPersistence(WaterPump model) {
+    Optional<PanacheWaterPumpEntity> entity = PanacheWaterPumpEntity.findByIdOptional(model.getId().getValue());
+
+    return entity.map((e) -> {
+      e.setActive(model.isActive());
+      e.setVolume(model.getVolumeFlow().getVolume().getValue());
+      return e;
+    }).orElse(
+        new PanacheWaterPumpEntity(
+            model.getId().getValue(),
+            model.getVolumeType().name(),
+            model.isActive(),
+            model.getVolumeFlow().getVolume().getValue(),
+            model.getVolumeFlow().getTimeUnit().name(),
+            model.getCreatedAt().toLocalDateTime(),
+            model.getUpdatedAt().toLocalDateTime()
+        )
     );
   }
 }

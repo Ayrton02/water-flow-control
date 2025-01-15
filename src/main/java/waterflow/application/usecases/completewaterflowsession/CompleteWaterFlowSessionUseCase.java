@@ -22,7 +22,7 @@ public class CompleteWaterFlowSessionUseCase implements ICompleteWaterFlowSessio
         }
 
         session.complete();
-        this.repository.save(session, session.getWaterPump());
+        this.repository.save(session);
         this.logger.info("Water flow session completed %s", input);
         return CompleteWaterFlowSessionOutput.from(session);
     }

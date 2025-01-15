@@ -38,7 +38,7 @@ public class SyncWaterFlowSessionOutput {
             session.getStatus(),
             session.getWaterContainer().getCurrentVolume().getValue(),
             session.getWaterSource().getCurrentVolume().getValue(),
-            session.getUserId().toString()
+            session.getUserId().getValue()
         );
     }
 
