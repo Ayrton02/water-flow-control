@@ -8,6 +8,7 @@ import core.valueobjects.UUID;
 import waterflow.domain.exceptions.ContainerAlreadyFullException;
 import waterflow.domain.exceptions.SafetyThresholdException;
 import waterflow.domain.exceptions.WaterFlowSessionException;
+import waterflow.domain.exceptions.WaterPumpInUseException;
 import waterflow.domain.valueobjects.Volume;
 import waterflow.domain.valueobjects.VolumeFlow;
 
@@ -122,6 +123,12 @@ public class WaterFlowSession extends BaseEntity {
             this.status = WaterFlowSessionStatus.ERRORED;
             this.finishedAt = DateTime.now();
             throw new ContainerAlreadyFullException("container is already full");
+        }
+
+        if (this.WATER_PUMP.isActive()) {
+            this.status = WaterFlowSessionStatus.ERRORED;
+            this.finishedAt = DateTime.now();
+            throw new WaterPumpInUseException("water pump is in use");
         }
 
         this.WATER_PUMP.start();
