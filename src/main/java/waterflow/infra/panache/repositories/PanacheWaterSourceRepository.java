@@ -17,13 +17,13 @@ import java.util.Optional;
 public class PanacheWaterSourceRepository implements CreateWaterSourceRepository {
 
   public WaterSource findSourceById(ID id) {
-    Optional<PanacheWaterSourceEntity> entity = PanacheWaterSourceEntity.find("id", id.getValue()).firstResultOptional();
+    Optional<PanacheWaterSourceEntity> entity = PanacheWaterSourceEntity.findByIdOptional( id.getValue());
     return entity.map(this::toModel).orElse(null);
   }
 
   @Transactional
   public void save(WaterSource source) {
-    PanacheWaterSourceEntity.persist(this.toEntity(source));
+    PanacheWaterSourceEntity.persist(this.toPersistence(source));
   }
 
   WaterSource toModel(PanacheWaterSourceEntity entity) {
@@ -39,15 +39,25 @@ public class PanacheWaterSourceRepository implements CreateWaterSourceRepository
     return source;
   }
 
-  PanacheWaterSourceEntity toEntity(WaterSource model) {
-    return new PanacheWaterSourceEntity(
-        model.getId().toString(),
-        model.getVolumeType().name(),
-        model.getMaxCapacity().getValue(),
-        model.getSafetyThreshold().getValue(),
-        model.getCurrentVolume().getValue(),
-        model.getCreatedAt().toLocalDateTime(),
-        model.getUpdatedAt().toLocalDateTime()
+  PanacheWaterSourceEntity toPersistence(WaterSource model) {
+    Optional<PanacheWaterSourceEntity> optional = PanacheWaterSourceEntity.findByIdOptional(model.getId().getValue());
+
+    return optional.map((o) -> {
+      o.setCurrentVolume(model.getCurrentVolume().getValue());
+      o.setMaxCapacity((model.getMaxCapacity().getValue()));
+      o.setSafetyThreshold((model.getSafetyThreshold().getValue()));
+      o.setCurrentVolume((model.getCurrentVolume().getValue()));
+      return o;
+    }).orElse(
+        new PanacheWaterSourceEntity(
+            model.getId().getValue(),
+            model.getVolumeType().name(),
+            model.getMaxCapacity().getValue(),
+            model.getSafetyThreshold().getValue(),
+            model.getCurrentVolume().getValue(),
+            model.getCreatedAt().toLocalDateTime(),
+            model.getUpdatedAt().toLocalDateTime()
+        )
     );
   }
 }

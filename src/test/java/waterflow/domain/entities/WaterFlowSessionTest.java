@@ -16,9 +16,16 @@ public class WaterFlowSessionTest {
 
     @Test()
     public void shouldSyncAndUpdateValues() {
-        LiterWaterPump pump = new LiterWaterPump(new LiterFlow(new Liter(1d), TimeMeasurementUnit.SECONDS));
+        LiterWaterPump pump = new LiterWaterPump(
+            new LiterFlow(new Liter(1d), TimeMeasurementUnit.SECONDS),
+            false
+        );
         LiterWaterContainer container = new LiterWaterContainer(new Liter(10000d), new Liter(0d));
-        LiterWaterSource source = new LiterWaterSource(new Liter(2000d), new Liter(10d), new Liter(2000d));
+        LiterWaterSource source = new LiterWaterSource(
+            new Liter(2000d),
+            new Liter(10d),
+            new Liter(2000d)
+        );
         User user = new User("Zezim", "000.000.000-00");
         WaterFlowSession session = WaterFlowSession.create(source, container, pump, user.getId());
 

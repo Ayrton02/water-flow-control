@@ -27,7 +27,7 @@ public class CompleteWaterFlowSessionOutput {
             session.getStartedAt().map(DateTime::toString).orElse(null),
             session.getFinishedAt().map(DateTime::toString).orElse(null),
             session.getStatus(),
-            session.getUserId().toString()
+            session.getUserId().getValue()
         );
     }
 

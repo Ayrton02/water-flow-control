@@ -22,7 +22,7 @@ public class SyncWaterFlowSessionUseCase implements ISyncWaterFlowSessionUseCase
         }
 
         session.sync();
-        this.repository.save(session, session.getWaterContainer(), session.getWaterSource(), session.getWaterPump());
+        this.repository.save(session);
         this.logger.info("Water flow session synced %s", session);
         return SyncWaterFlowSessionOutput.from(session);
     }

@@ -13,17 +13,21 @@ public abstract class WaterPump<T extends Volume<T>> extends BaseEntity implemen
 
     protected WaterPump(
             ID id,
-            VolumeFlow<T> volumeFlow
+            VolumeFlow<T> volumeFlow,
+            boolean isActive
     ) {
         super(id);
         this.volumeFlow = volumeFlow;
+        this.isActive = isActive;
     }
 
     protected WaterPump(
-            VolumeFlow<T> volumeFlow
+            VolumeFlow<T> volumeFlow,
+            boolean isActive
     ) {
         super(UUID.generate());
         this.volumeFlow = volumeFlow;
+        this.isActive = isActive;
     }
 
     public VolumeFlow<T> getVolumeFlow() {

@@ -9,15 +9,17 @@ public class LiterWaterPump extends WaterPump<Liter> {
 
     public LiterWaterPump(
             ID id,
-            VolumeFlow<Liter> volumeFlow
+            VolumeFlow<Liter> volumeFlow,
+            boolean isActive
     ) {
-        super(id, volumeFlow);
+        super(id, volumeFlow, isActive);
     }
 
     public LiterWaterPump(
-            VolumeFlow<Liter> volumeFlow
+            VolumeFlow<Liter> volumeFlow,
+            boolean isActive
     ) {
-        super(volumeFlow);
+        super(volumeFlow, isActive);
     }
 
     @Override

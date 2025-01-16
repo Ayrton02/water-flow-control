@@ -1,10 +1,7 @@
 package waterflow.infra.panache.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -36,6 +33,7 @@ public class PanacheWaterPumpEntity extends PanacheEntityBase {
   public PanacheWaterPumpEntity(
       String id,
       String type,
+      Boolean isActive,
       Double volume,
       String timeUnit,
       LocalDateTime createdAt,
@@ -43,6 +41,7 @@ public class PanacheWaterPumpEntity extends PanacheEntityBase {
       ) {
     this.id = id;
     this.type = type;
+    this.isActive = isActive;
     this.volume = volume;
     this.timeUnit = timeUnit;
     this.createdAt = createdAt;
@@ -103,5 +102,10 @@ public class PanacheWaterPumpEntity extends PanacheEntityBase {
 
   public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  @PreUpdate
+  public void preUpdate() {
+    this.updatedAt = LocalDateTime.now();
   }
 }
