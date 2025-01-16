@@ -1,0 +1,5 @@
+package waterflow.application.usecases.syncpreviewwaterflowsession;
+
+import core.usecase.BaseUseCase;
+
+public interface ISyncPreviewWaterFlowSessionUseCase extends BaseUseCase<SyncPreviewWaterFlowSessionInput, SyncPreviewWaterFlowSessionOutput> {}
