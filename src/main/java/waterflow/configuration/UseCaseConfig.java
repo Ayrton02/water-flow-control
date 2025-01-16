@@ -25,6 +25,9 @@ import waterflow.application.usecases.findwaterflowsession.IFindWaterFlowSession
 import waterflow.application.usecases.startwaterflowsession.IStartWaterFlowSessionUseCase;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionRepository;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionUseCase;
+import waterflow.application.usecases.syncpreviewwaterflowsession.ISyncPreviewWaterFlowSessionUseCase;
+import waterflow.application.usecases.syncpreviewwaterflowsession.SyncPreviewWaterFlowSessionRepository;
+import waterflow.application.usecases.syncpreviewwaterflowsession.SyncPreviewWaterFlowSessionUseCase;
 import waterflow.application.usecases.syncwaterflowsession.ISyncWaterFlowSessionUseCase;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionRepository;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionUseCase;
@@ -77,5 +80,10 @@ public class UseCaseConfig {
   @Produces
   public IFindWaterFlowSessionUseCase findWaterFlowSessionUseCase(FindWaterFlowSessionRepository repository) {
     return new FindWaterFlowSessionUseCase(new LoggerImpl(FindWaterFlowSessionUseCase.class), repository);
+  }
+
+  @Produces
+  public ISyncPreviewWaterFlowSessionUseCase syncPreviewWaterFlowSessionUseCase(SyncPreviewWaterFlowSessionRepository repository) {
+    return new SyncPreviewWaterFlowSessionUseCase(new LoggerImpl(SyncPreviewWaterFlowSessionUseCase.class), repository);
   }
 }
