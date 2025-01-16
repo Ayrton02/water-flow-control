@@ -5,10 +5,7 @@ import core.exception.BaseException;
 import core.valueobjects.DateTime;
 import core.valueobjects.ID;
 import core.valueobjects.UUID;
-import waterflow.domain.exceptions.ContainerAlreadyFullException;
-import waterflow.domain.exceptions.SafetyThresholdException;
-import waterflow.domain.exceptions.WaterFlowSessionException;
-import waterflow.domain.exceptions.WaterPumpInUseException;
+import waterflow.domain.exceptions.*;
 import waterflow.domain.valueobjects.Volume;
 import waterflow.domain.valueobjects.VolumeFlow;
 
@@ -155,6 +152,10 @@ public class WaterFlowSession extends BaseEntity {
                 this.WATER_SOURCE.dump(volume);
                 this.WATER_CONTAINER.fill(volume);
             } catch (BaseException e) {
+                if (e instanceof WaterOverFlowException) {
+                    this.WATER_CONTAINER.setCurrentVolume(this.WATER_CONTAINER.getMaxCapacity());
+                }
+
                 this.finishedAt = DateTime.now();
                 this.WATER_PUMP.stop();
                 this.status = WaterFlowSessionStatus.COMPLETED_WITH_ERROR;
