@@ -152,10 +152,6 @@ public class WaterFlowSession extends BaseEntity {
                 this.WATER_SOURCE.dump(volume);
                 this.WATER_CONTAINER.fill(volume);
             } catch (BaseException e) {
-                if (e instanceof SafetyThresholdException) {
-                    this.WATER_SOURCE.setCurrentVolume(this.WATER_SOURCE.getSafetyThreshold());
-                }
-
                 if (e instanceof WaterOverFlowException) {
                     this.WATER_CONTAINER.setCurrentVolume(this.WATER_CONTAINER.getMaxCapacity());
                 }
