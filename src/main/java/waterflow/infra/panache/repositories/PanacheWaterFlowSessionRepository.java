@@ -14,6 +14,7 @@ import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlow
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionRepository;
 import waterflow.application.usecases.findwaterflowsession.FindWaterFlowSessionRepository;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionRepository;
+import waterflow.application.usecases.syncpreviewwaterflowsession.SyncPreviewWaterFlowSessionRepository;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionRepository;
 import waterflow.domain.entities.WaterContainer;
 import waterflow.domain.entities.WaterFlowSession;
@@ -38,7 +39,8 @@ public class PanacheWaterFlowSessionRepository implements
     StartWaterFlowSessionRepository,
     CompleteWaterFlowSessionRepository,
     SyncWaterFlowSessionRepository,
-    FindWaterFlowSessionRepository
+    FindWaterFlowSessionRepository,
+    SyncPreviewWaterFlowSessionRepository
 {
   private final PanacheWaterSourceRepository sourceRepository;
   private final PanacheWaterContainerRepository containerRepository;

@@ -163,6 +163,25 @@ public class WaterFlowSession extends BaseEntity {
         }
     }
 
+    public void syncPreview(DateTime start, DateTime end) {
+        if (start.isAfter(end)) {
+            throw new WaterFlowSessionException("cannot preview if start time is after end time");
+        }
+
+        VolumeFlow flow = this.WATER_PUMP.getVolumeFlow();
+        Volume volume = flow.calculateFlowByTimeElapsed(start, end);
+
+        try {
+            this.WATER_SOURCE.dump(volume);
+            this.WATER_CONTAINER.fill(volume);
+        } catch (BaseException e) {
+            if (e instanceof WaterOverFlowException) {
+                this.WATER_CONTAINER.setCurrentVolume(this.WATER_CONTAINER.getMaxCapacity());
+            }
+            this.status = WaterFlowSessionStatus.COMPLETED_WITH_ERROR;
+        }
+    }
+
     @Override
     public String toString() {
         return String.format(
