@@ -4,8 +4,10 @@ import waterflow.application.usecases.completewaterflowsession.CompleteWaterFlow
 import waterflow.application.usecases.createwaterflowsession.CreateWaterFlowSessionOutput;
 import waterflow.application.usecases.findwaterflowsession.FindWaterFlowSessionOutput;
 import waterflow.application.usecases.startwaterflowsession.StartWaterFlowSessionOutput;
+import waterflow.application.usecases.syncpreviewwaterflowsession.SyncPreviewWaterFlowSessionOutput;
 import waterflow.application.usecases.syncwaterflowsession.SyncWaterFlowSessionOutput;
 import waterflow.presenters.dto.FindWaterFlowSessionResponseDTO;
+import waterflow.presenters.dto.SyncPreviewWaterFlowSessionResponseDTO;
 import waterflow.presenters.dto.SyncWaterFlowSessionResponseDTO;
 import waterflow.presenters.dto.WaterFlowSessionResponseDTO;
 
@@ -69,5 +71,16 @@ public class WaterFlowSessionMapper {
         output.getCreatedAt(),
         output.getUpdatedAt()
     );
+  }
+
+  public static SyncPreviewWaterFlowSessionResponseDTO toResponseDTO(SyncPreviewWaterFlowSessionOutput output) {
+      return new SyncPreviewWaterFlowSessionResponseDTO(
+          output.id(),
+          output.status(),
+          output.containerVolume(),
+          output.containerMaxCapacity(),
+          output.sourceVolume(),
+          output.sourceSafetyThreshold()
+      );
   }
 }
