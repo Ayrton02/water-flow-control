@@ -25,4 +25,8 @@ public enum TimeMeasurementUnit {
     public String getShortDescription() {
         return this.shortDescription;
     }
+
+    public TimeUnit getTimeUnit() {
+        return this.timeUnit;
+    }
 }
