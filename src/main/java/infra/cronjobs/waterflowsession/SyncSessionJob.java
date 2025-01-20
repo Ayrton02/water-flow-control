@@ -22,7 +22,11 @@ public class SyncSessionJob {
     List<ID> ids = service.findActiveIds();
     ids.forEach((id) -> {
           this.logger.info("Syncing session id %s", id);
-          this.service.syncSession(id.getValue());
+          try {
+            this.service.syncSession(id.getValue());
+          } catch (Exception e) {
+            this.logger.error("Sync session error %s", e.getMessage());
+          }
     });
   }
 }
