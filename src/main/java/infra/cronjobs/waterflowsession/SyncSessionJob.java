@@ -1,4 +1,4 @@
-package infra.cronjobs.syncsession;
+package infra.cronjobs.waterflowsession;
 
 import core.valueobjects.ID;
 import infra.logger.Logger;
