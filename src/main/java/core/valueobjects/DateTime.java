@@ -1,5 +1,7 @@
 package core.valueobjects;
 
+import waterflow.domain.enums.TimeMeasurementUnit;
+
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -22,6 +24,14 @@ public class DateTime {
 
     public boolean isBefore(DateTime date) {
         return this.value.isBefore(date.value);
+    }
+
+    public LocalDateTime plus(Long amount, TimeMeasurementUnit unit) {
+        return this.value.plus(amount, unit.getTimeUnit().toChronoUnit());
+    }
+
+    public LocalDateTime minus(Long amount, TimeMeasurementUnit unit) {
+        return this.value.minus(amount, unit.getTimeUnit().toChronoUnit());
     }
 
     public LocalDateTime toLocalDateTime() {
