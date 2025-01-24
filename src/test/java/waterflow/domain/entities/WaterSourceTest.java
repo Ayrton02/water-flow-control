@@ -1,6 +1,6 @@
 package waterflow.domain.entities;
 
-import waterflow.domain.entities.LiterWaterSource;
+import waterflow.domain.exceptions.NegativeVolumeException;
 import waterflow.domain.exceptions.SafetyThresholdException;
 import waterflow.domain.valueobjects.Liter;
 import org.junit.Assert;
@@ -24,6 +24,19 @@ public class WaterSourceTest {
         Assert.assertEquals(
                 source.getCurrentVolume().getValue(),
                 currentVolume.getValue()
+        );
+    }
+
+    @Test
+    public void shouldNotDumpBecauseResultIsNegative() {
+        LiterWaterSource source = new LiterWaterSource(
+            new Liter(100d),
+            new Liter(0d),
+            new Liter(20d)
+        );
+
+        Assert.assertThrows(
+            NegativeVolumeException.class, () -> source.dump(new Liter(30d))
         );
     }
 }
